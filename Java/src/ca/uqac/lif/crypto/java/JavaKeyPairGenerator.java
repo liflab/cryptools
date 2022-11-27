@@ -20,22 +20,22 @@ package ca.uqac.lif.crypto.java;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import javax.crypto.SecretKey;
-
-import ca.uqac.lif.crypto.symmetric.KeyGenerator;
+import ca.uqac.lif.crypto.asymmetric.KeyPairGenerator;
+import ca.uqac.lif.crypto.asymmetric.PrivateKey;
+import ca.uqac.lif.crypto.asymmetric.PublicKey;
 
 /**
- * A key generator for symmetric encryption algorithms, leveraging Java's
- * {@link KeyGenerator} class.
+ * A key generator for asymmetric encryption algorithms, leveraging Java's
+ * {@link KeyPairGenerator} class.
  * 
  * @author Sylvain Hallé
  */
-abstract class JavaKeyGenerator implements KeyGenerator<SecretKey>
+abstract class JavaKeyPairGenerator<PU extends PublicKey<java.security.PublicKey>,PR extends PrivateKey<java.security.PrivateKey>> implements KeyPairGenerator<PU,PR>
 {
 	/**
-	 * The underlying generator for keys.
+	 * The underlying generator for key pairs.
 	 */
-	/*@ null @*/ protected final javax.crypto.KeyGenerator m_generator;
+	/*@ null @*/ protected final java.security.KeyPairGenerator m_generator;
 	
 	/**
 	 * An optional secure source of randomness to generate the keys.
@@ -43,12 +43,12 @@ abstract class JavaKeyGenerator implements KeyGenerator<SecretKey>
 	/*@ null @*/ protected final SecureRandom m_random;
 	
 	/**
-	 * Creates a new key generator.
+	 * Creates a new key pair generator.
 	 * @param algorithm The name of the algorithm to generate keys for
 	 * @param random An optional secure source of randomness to generate the
 	 * keys; may be null
 	 */
-	public JavaKeyGenerator(/*@ non_null @*/ String algorithm, /*@ null @*/ SecureRandom random)
+	public JavaKeyPairGenerator(/*@ non_null @*/ String algorithm, /*@ null @*/ SecureRandom random)
 	{
 		super();
 		m_generator = getInstance(algorithm);
@@ -59,7 +59,7 @@ abstract class JavaKeyGenerator implements KeyGenerator<SecretKey>
 	 * Creates a new key generator.
 	 * @param algorithm The name of the algorithm to generate keys for
 	 */
-	public JavaKeyGenerator(/*@ non_null @*/ String algorithm)
+	public JavaKeyPairGenerator(/*@ non_null @*/ String algorithm)
 	{
 		this(algorithm, null);
 	}
@@ -67,20 +67,20 @@ abstract class JavaKeyGenerator implements KeyGenerator<SecretKey>
 	@Override
 	public String toString()
 	{
-		return "Key generator for " + m_generator.getAlgorithm();
+		return "Key pair generator for " + m_generator.getAlgorithm();
 	}
 	
 	/**
-	 * Gets an instance of key generator based on an algorithm name.
-	 * @param algorithm The name of the algorithm to generate keys for
+	 * Gets an instance of key pair generator based on an algorithm name.
+	 * @param algorithm The name of the algorithm to generate key pairs for
 	 * @return The generator, or <tt>null</tt> if the algorithm name does not
-	 * correspond to an implemented key generator
+	 * correspond to an implemented key pair generator
 	 */
-	/*@ null @*/ protected static javax.crypto.KeyGenerator getInstance(String algorithm)
+	/*@ null @*/ protected static java.security.KeyPairGenerator getInstance(String algorithm)
 	{
 		try 
 		{
-			return javax.crypto.KeyGenerator.getInstance(algorithm);
+			return java.security.KeyPairGenerator.getInstance(algorithm);
 		}
 		catch (NoSuchAlgorithmException e)
 		{

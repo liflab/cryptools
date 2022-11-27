@@ -16,4 +16,7 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Code examples using the classes provided by this library.
+ */
 package ca.uqac.lif.crypto.examples;

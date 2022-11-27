@@ -15,22 +15,33 @@
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package ca.uqac.lif.crypto.asymmetric;
+package ca.uqac.lif.crypto.examples;
 
 import ca.uqac.lif.crypto.CryptoException;
+import ca.uqac.lif.crypto.java.DES;
+import ca.uqac.lif.crypto.java.DES.DESKey;
+import ca.uqac.lif.crypto.util.ByteArray;
 
 /**
- * Generates key pairs for an asymmetric encryption algorithm.
- * @author Sylvain Hallé
- *
- * @param <T> The type of the key contents
+ * Generates a key, encrypts a message using DES, then decrypts it.
  */
-public interface KeyPairGenerator<PU extends PublicKey<?>,PR extends PrivateKey<?>>
+public class DESEncryption1 
 {
-	/**
-	 * Generates a new public-private key pair.
-	 * @return The generated key pair
-	 * @throws CryptoException Thrown if the key could not be generated
-	 */
-	/*@ non_null @*/ public KeyPair<PU,PR> generateKeyPair() throws CryptoException;
+	public static void main(String[] args) throws CryptoException
+	{
+		// Generate a DES key
+		DESKey k = DES.generator.generateKey();
+		
+		// Encrypt a string
+		byte[] encrypted = DES.instance.encrypt(k, "Hello world".getBytes());
+		
+		// Show encrypted output
+		System.out.println(ByteArray.toHexString(encrypted));
+		
+		// Decrypt the array
+		byte[] decrypted = DES.instance.decrypt(k, encrypted);
+		
+		// Print message
+		System.out.println(new String(decrypted));
+	}
 }

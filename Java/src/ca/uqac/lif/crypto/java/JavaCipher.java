@@ -19,6 +19,8 @@ package ca.uqac.lif.crypto.java;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -84,7 +86,7 @@ abstract class JavaCipher
 	/**
 	 * Uses the internal Java cipher object to decrypt the contents of a byte
 	 * array using a secret key.
-	 * @param k The key used to perform the encryption
+	 * @param k The key used to perform the decryption
 	 * @param m The byte array to decrypt
 	 * @return The decrypted contents
 	 * @throws CryptoException Thrown if the decryption could not proceed
@@ -94,6 +96,122 @@ abstract class JavaCipher
 		try
 		{
 			m_cipher.init(Cipher.DECRYPT_MODE, k);
+			return m_cipher.doFinal(m);
+		}
+		catch (InvalidKeyException e) 
+		{
+			throw new CryptoException(e);
+		}
+		catch (IllegalBlockSizeException e)
+		{
+			throw new CryptoException(e);
+		}
+		catch (BadPaddingException e) 
+		{
+			throw new CryptoException(e);
+		}
+	}
+	
+	/**
+	 * Uses the internal Java cipher object to decrypt the contents of a byte
+	 * array using a public key.
+	 * @param k The key used to perform the decryption
+	 * @param m The byte array to decrypt
+	 * @return The decrypted contents
+	 * @throws CryptoException Thrown if the decryption could not proceed
+	 */
+	protected byte[] cipherDecrypt(PublicKey k, byte[] m) throws CryptoException
+	{
+		try
+		{
+			m_cipher.init(Cipher.DECRYPT_MODE, k);
+			return m_cipher.doFinal(m);
+		}
+		catch (InvalidKeyException e) 
+		{
+			throw new CryptoException(e);
+		}
+		catch (IllegalBlockSizeException e)
+		{
+			throw new CryptoException(e);
+		}
+		catch (BadPaddingException e) 
+		{
+			throw new CryptoException(e);
+		}
+	}
+	
+	/**
+	 * Uses the internal Java cipher object to decrypt the contents of a byte
+	 * array using a private key.
+	 * @param k The key used to perform the decryption
+	 * @param m The byte array to decrypt
+	 * @return The decrypted contents
+	 * @throws CryptoException Thrown if the decryption could not proceed
+	 */
+	protected byte[] cipherDecrypt(PrivateKey k, byte[] m) throws CryptoException
+	{
+		try
+		{
+			m_cipher.init(Cipher.DECRYPT_MODE, k);
+			return m_cipher.doFinal(m);
+		}
+		catch (InvalidKeyException e) 
+		{
+			throw new CryptoException(e);
+		}
+		catch (IllegalBlockSizeException e)
+		{
+			throw new CryptoException(e);
+		}
+		catch (BadPaddingException e) 
+		{
+			throw new CryptoException(e);
+		}
+	}
+	
+	/**
+	 * Uses the internal Java cipher object to encrypt the contents of a byte
+	 * array using a public key.
+	 * @param k The key used to perform the encryption
+	 * @param m The byte array to encrypt
+	 * @return The encrypted contents
+	 * @throws CryptoException Thrown if the encryption could not proceed
+	 */
+	protected byte[] cipherEncrypt(PublicKey k, byte[] m) throws CryptoException
+	{
+		try
+		{
+			m_cipher.init(Cipher.ENCRYPT_MODE, k);
+			return m_cipher.doFinal(m);
+		}
+		catch (InvalidKeyException e) 
+		{
+			throw new CryptoException(e);
+		}
+		catch (IllegalBlockSizeException e)
+		{
+			throw new CryptoException(e);
+		}
+		catch (BadPaddingException e) 
+		{
+			throw new CryptoException(e);
+		}
+	}
+	
+	/**
+	 * Uses the internal Java cipher object to encrypt the contents of a byte
+	 * array using a private key.
+	 * @param k The key used to perform the encryption
+	 * @param m The byte array to encrypt
+	 * @return The encrypted contents
+	 * @throws CryptoException Thrown if the encryption could not proceed
+	 */
+	protected byte[] cipherEncrypt(PrivateKey k, byte[] m) throws CryptoException
+	{
+		try
+		{
+			m_cipher.init(Cipher.ENCRYPT_MODE, k);
 			return m_cipher.doFinal(m);
 		}
 		catch (InvalidKeyException e) 

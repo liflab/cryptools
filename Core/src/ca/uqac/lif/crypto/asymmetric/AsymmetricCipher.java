@@ -19,7 +19,7 @@ package ca.uqac.lif.crypto.asymmetric;
 
 import ca.uqac.lif.crypto.CryptoException;
 
-public interface AsymmetricCipher<T>
+public interface AsymmetricCipher<PU extends PublicKey<?>,PR extends PrivateKey<?>>
 {
 	/**
 	 * Encrypts a message using a public key.
@@ -28,7 +28,7 @@ public interface AsymmetricCipher<T>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the encryption could not proceed
 	 */
-	/*@ non_null @*/ public byte[] encrypt(PublicKey<T> k, byte[] m) throws CryptoException;
+	/*@ non_null @*/ public byte[] encrypt(PU k, byte[] m) throws CryptoException;
 	
 	/**
 	 * Encrypts a message using a private key.
@@ -37,7 +37,7 @@ public interface AsymmetricCipher<T>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the encryption could not proceed
 	 */
-	/*@ non_null @*/ public byte[] encrypt(PrivateKey<T> k, byte[] m) throws CryptoException;
+	/*@ non_null @*/ public byte[] encrypt(PR k, byte[] m) throws CryptoException;
 	
 	/**
 	 * Decrypts a message using a public key.
@@ -46,7 +46,7 @@ public interface AsymmetricCipher<T>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the decryption could not proceed
 	 */
-	public byte[] decrypt(PublicKey<T> k, byte[] m) throws CryptoException;
+	public byte[] decrypt(PU k, byte[] m) throws CryptoException;
 	
 	/**
 	 * Decrypts a message using a private key.
@@ -55,5 +55,5 @@ public interface AsymmetricCipher<T>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the decryption could not proceed
 	 */
-	public byte[] decrypt(PrivateKey<T> k, byte[] m) throws CryptoException;
+	public byte[] decrypt(PR k, byte[] m) throws CryptoException;
 }

@@ -17,6 +17,14 @@
  */
 package ca.uqac.lif.crypto;
 
+/**
+ * Exception thrown when performing cryptographic operations. As a rule, all
+ * other exceptions (except {@link RuntimeException}s) that can be thrown by
+ * methods called by objects of this library are caught and wrapped into a
+ * {@link CryptoException}.
+ * 
+ * @author Sylvain Hallé
+ */
 public class CryptoException extends Exception
 {
 	/**
