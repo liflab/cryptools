@@ -16,4 +16,10 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Interfaces for operations involving an asymmetric encryption algorithm.
+ * Examples of asymmetric algorithms are
+ * <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a> and
+ * <a href="https://en.wikipedia.org/wiki/ElGamal_encryption">ElGamal</a>.
+ */
 package ca.uqac.lif.crypto.asymmetric;

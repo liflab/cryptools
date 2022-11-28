@@ -23,14 +23,14 @@ import ca.uqac.lif.crypto.CryptoException;
  * Generates keys for a for a symmetric encryption algorithm.
  * @author Sylvain Hallé
  *
- * @param <T> The type of the key contents
+ * @param <K> The type of the key contents
  */
-public interface KeyGenerator<T>
+public interface KeyGenerator<K extends SymmetricKey<?>>
 {
 	/**
 	 * Generates a new key.
 	 * @return The generated key
 	 * @throws CryptoException Thrown if the key could not be generated
 	 */
-	/*@ non_null @*/ public SymmetricKey<T> generateKey() throws CryptoException;
+	/*@ non_null @*/ public K generateKey() throws CryptoException;
 }

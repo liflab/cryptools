@@ -19,7 +19,15 @@ package ca.uqac.lif.crypto.asymmetric;
 
 import ca.uqac.lif.crypto.CryptoException;
 
-public interface AsymmetricCipher<PU extends PublicKey<?>,PR extends PrivateKey<?>>
+/**
+ * Algorithm using different keys for encryption and decryption. One is
+ * typically called the public key, and the other is called the private key.
+ * @author Sylvain Hallé
+ *
+ * @param <PU> The type of the key used by the algorithm
+ * @param <M> The type of the message handled by the algorithm
+ */
+public interface AsymmetricCipher<PU extends PublicKey<?>,PR extends PrivateKey<?>,M>
 {
 	/**
 	 * Encrypts a message using a public key.
@@ -28,7 +36,7 @@ public interface AsymmetricCipher<PU extends PublicKey<?>,PR extends PrivateKey<
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the encryption could not proceed
 	 */
-	/*@ non_null @*/ public byte[] encrypt(PU k, byte[] m) throws CryptoException;
+	/*@ non_null @*/ public M encrypt(PU k, M m) throws CryptoException;
 	
 	/**
 	 * Encrypts a message using a private key.
@@ -37,7 +45,7 @@ public interface AsymmetricCipher<PU extends PublicKey<?>,PR extends PrivateKey<
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the encryption could not proceed
 	 */
-	/*@ non_null @*/ public byte[] encrypt(PR k, byte[] m) throws CryptoException;
+	/*@ non_null @*/ public M encrypt(PR k, M m) throws CryptoException;
 	
 	/**
 	 * Decrypts a message using a public key.
@@ -46,7 +54,7 @@ public interface AsymmetricCipher<PU extends PublicKey<?>,PR extends PrivateKey<
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the decryption could not proceed
 	 */
-	public byte[] decrypt(PU k, byte[] m) throws CryptoException;
+	public M decrypt(PU k, M m) throws CryptoException;
 	
 	/**
 	 * Decrypts a message using a private key.
@@ -55,5 +63,5 @@ public interface AsymmetricCipher<PU extends PublicKey<?>,PR extends PrivateKey<
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the decryption could not proceed
 	 */
-	public byte[] decrypt(PR k, byte[] m) throws CryptoException;
+	public M decrypt(PR k, M m) throws CryptoException;
 }

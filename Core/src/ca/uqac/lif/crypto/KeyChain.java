@@ -17,45 +17,29 @@
  */
 package ca.uqac.lif.crypto;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * An object associating abstract entities to keys. Additionally, a key chain
- * can be loaded from, and saved to, a {@link FileSystem} instance.
+ * An object associating abstract entities to keys. Note that the sole purpose
+ * of the key chain is to handle those associations, and not to protect them or
+ * to enforce access control. That is, key chains that are serializable may
+ * require the resulting output to be secured by some external means.
+ *  
  * @author Sylvain Hallé
  *
  * @param <E> The type of the entities
- * @param <T> The type of the keys contained in this keychain
+ * @param <K> The type of the keys contained in this keychain
  */
-public abstract class KeyChain<E,T>
+public interface KeyChain<E,K extends Key<?>>
 {
-	/**
-	 * The map storing the associations between entities and keys.
-	 */
-	/*@ non_null @*/ protected final Map<E,Key<T>> m_chain;
-	
-	/**
-	 * Creates a new empty key chain.
-	 */
-	public KeyChain()
-	{
-		super();
-		m_chain = new HashMap<E,Key<T>>();
-	}
-	
 	/**
 	 * Adds a new entity-key association to this key chain.
 	 * @param e The entity
 	 * @param k The key
 	 * @return This key chain
 	 */
-	/*@ non_null @*/ public KeyChain<E,T> add(/*@ non_null @*/ E e, /*@ non_null @*/ Key<T> k)
-	{
-		m_chain.put(e, k);
-		return this;
-	}
+	/*@ non_null @*/ public KeyChain<E,K> add(/*@ non_null @*/ E e, /*@ non_null @*/ K k);
 	
 	/**
 	 * Determines if an entity has a key associated to it in this key chain.
@@ -63,36 +47,24 @@ public abstract class KeyChain<E,T>
 	 * @return <tt>true</tt> if the entity has an associated key,
 	 * <tt>false</tt> otherwise
 	 */
-	/*@ pure @*/ public boolean hasKey(E e)
-	{
-		return m_chain.containsKey(e);
-	}
+	/*@ pure @*/ public boolean hasKey(E e);
 	
 	/**
 	 * Gets the key associated to an entity in this key chain.
 	 * @param e The entity to look for
 	 * @return The key, or <tt>null</tt> if no such key exists
 	 */
-	/*@ pure null @*/ public Key<T> getKey(/*@ non_null @*/ E e)
-	{
-		return m_chain.getOrDefault(e, null);
-	}
+	/*@ pure null @*/ public K getKey(/*@ non_null @*/ E e);
 	
 	/**
 	 * Gets the set of entities that have a key in this key chain.
 	 * @return The set of entities
 	 */
-	/*@ pure non_null @*/ public Set<E> entitySet()
-	{
-		return m_chain.keySet();
-	}
+	/*@ pure non_null @*/ public Set<E> entitySet();
 	
 	/**
 	 * Gets the set of entries in this key chain.
 	 * @return The set of entries
 	 */
-	/*@ pure non_null @*/ public Set<Map.Entry<E,Key<T>>> entrySet()
-	{
-		return m_chain.entrySet();
-	}
+	/*@ pure non_null @*/ public Set<Map.Entry<E,K>> entrySet();
 }

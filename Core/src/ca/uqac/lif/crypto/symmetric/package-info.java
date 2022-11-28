@@ -16,4 +16,10 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Interfaces for operations involving an symmetric encryption algorithm.
+ * Examples of aymmetric algorithms are
+ * <a href="https://en.wikipedia.org/wiki/Data_Encryption_Standard">DES</a> and
+ * <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>.
+ */
 package ca.uqac.lif.crypto.symmetric;

@@ -17,8 +17,22 @@
  */
 package ca.uqac.lif.crypto.java;
 
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.ArrayList;
+import java.util.List;
 
+import ca.uqac.lif.azrael.ObjectPrinter;
+import ca.uqac.lif.azrael.ObjectReader;
+import ca.uqac.lif.azrael.PrintException;
+import ca.uqac.lif.azrael.Printable;
+import ca.uqac.lif.azrael.Readable;
+import ca.uqac.lif.azrael.ReadException;
 import ca.uqac.lif.crypto.CryptoException;
 import ca.uqac.lif.crypto.asymmetric.AsymmetricCipher;
 import ca.uqac.lif.crypto.asymmetric.KeyPair;
@@ -32,7 +46,7 @@ import ca.uqac.lif.crypto.asymmetric.PublicKey;
  * 
  * @author Sylvain Hallé
  */
-public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.crypto.java.RSA.RSAPublicKey,ca.uqac.lif.crypto.java.RSA.RSAPrivateKey>
+public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.crypto.java.RSA.RSAPublicKey,ca.uqac.lif.crypto.java.RSA.RSAPrivateKey,byte[]>
 {
 	/**
 	 * A single publicly visible instance of the hash function.
@@ -43,6 +57,11 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 	 * A generator for RSA key pairs of 1024 bits with default settings.
 	 */
 	public static final RSAKeyPairGenerator generator = new RSAKeyPairGenerator(1024);
+	
+	/**
+	 * A static instance of key factory.
+	 */
+	protected static final KeyFactory s_keyFactory = getFactory();
 	
 	/**
 	 * Creates a new DES encryption function.
@@ -98,7 +117,7 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 	/**
 	 * A public key for the RSA algorithm.
 	 */
-	public static class RSAPublicKey implements PublicKey<java.security.PublicKey>
+	public static class RSAPublicKey implements PublicKey<java.security.PublicKey>, Readable, Printable
 	{
 		/**
 		 * The underlying Java {@link PublicKey} object contained in this
@@ -116,18 +135,53 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 			super();
 			m_key = k;
 		}
+		
+		/**
+		 * Creates an empty pblic key. This constructor is used only for
+		 * deserialization.
+		 */
+		protected RSAPublicKey()
+		{
+			this(null);
+		}
 
 		@Override
 		public java.security.PublicKey getContents()
 		{
 			return m_key;
 		}
+
+		@Override
+		public Object print(ObjectPrinter<?> printer) throws PrintException
+		{
+			return printer.print(m_key.getEncoded());
+		}
+
+		@Override
+		public Object read(ObjectReader<?> reader, Object o) throws ReadException
+		{
+			Object o_read = reader.read(o);
+			if (!(o_read instanceof byte[]))
+			{
+				throw new ReadException("Expected a byte array");
+			}
+			byte[] key_contents = (byte[]) o_read;
+			KeySpec keyspec = new X509EncodedKeySpec(key_contents);
+			try
+			{
+				return new RSAPublicKey(s_keyFactory.generatePublic(keyspec));
+			}
+			catch (InvalidKeySpecException e)
+			{
+				throw new ReadException(e);
+			}
+		}
 	}
 	
 	/**
 	 * A private key for the RSA algorithm.
 	 */
-	public static class RSAPrivateKey implements PrivateKey<java.security.PrivateKey>
+	public static class RSAPrivateKey implements PrivateKey<java.security.PrivateKey>, Readable, Printable
 	{
 		/**
 		 * The underlying Java {@link PrivateKey} object contained in this
@@ -145,18 +199,53 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 			super();
 			m_key = k;
 		}
+		
+		/**
+		 * Creates an empty private key. This constructor is used only for
+		 * deserialization.
+		 */
+		protected RSAPrivateKey()
+		{
+			this(null);
+		}
 
 		@Override
 		public java.security.PrivateKey getContents()
 		{
 			return m_key;
 		}
+		
+		@Override
+		public Object print(ObjectPrinter<?> printer) throws PrintException
+		{
+			return printer.print(m_key.getEncoded());
+		}
+
+		@Override
+		public RSAPrivateKey read(ObjectReader<?> reader, Object o) throws ReadException
+		{
+			Object o_read = reader.read(o);
+			if (!(o_read instanceof byte[]))
+			{
+				throw new ReadException("Expected a byte array");
+			}
+			byte[] key_contents = (byte[]) o_read;
+			KeySpec keyspec = new PKCS8EncodedKeySpec(key_contents);
+			try
+			{
+				return new RSAPrivateKey(s_keyFactory.generatePrivate(keyspec));
+			}
+			catch (InvalidKeySpecException e)
+			{
+				throw new ReadException(e);
+			}
+		}
 	}
 	
 	/**
 	 * A key pair consisting of an RSA public and private key.
 	 */
-	public static class RSAKeyPair implements KeyPair<RSAPublicKey,RSAPrivateKey>
+	public static class RSAKeyPair implements KeyPair<RSAPublicKey,RSAPrivateKey>, Readable, Printable
 	{
 		/**
 		 * The RSA public key of this key pair.
@@ -179,6 +268,14 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 			m_publicKey = public_key;
 			m_privateKey = private_key;
 		}
+		
+		/**
+		 * Creates an empty key pair
+		 */
+		protected RSAKeyPair()
+		{
+			this(null, null);
+		}
 
 		@Override
 		public RSAPrivateKey getPrivateKey() throws CryptoException
@@ -190,6 +287,51 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 		public RSAPublicKey getPublicKey() throws CryptoException
 		{
 			return m_publicKey;
+		}
+
+		@Override
+		public Object print(ObjectPrinter<?> printer) throws PrintException
+		{
+			List<Object> list = new ArrayList<Object>();
+			list.add(m_publicKey);
+			list.add(m_privateKey);
+			return printer.print(list);
+		}
+
+		@Override
+		public Object read(ObjectReader<?> reader, Object o) throws ReadException
+		{
+			Object read = reader.read(o);
+			if (!(read instanceof List))
+			{
+				throw new ReadException("Expected a list");
+			}
+			List<?> list = (List<?>) read;
+			if (list.size() != 2)
+			{
+				throw new ReadException("Invalid list size");
+			}
+			Object e1 = list.get(0);
+			Object e2 = list.get(1);
+			RSAPublicKey pu = null;
+			RSAPrivateKey pr = null;
+			if (e1 != null)
+			{
+				if (!(e1 instanceof RSAPublicKey))
+				{
+					throw new ReadException("Expected an RSA public key");
+				}
+				pu = (RSAPublicKey) e1;
+			}
+			if (e2 != null)
+			{
+				if (!(e2 instanceof RSAPrivateKey))
+				{
+					throw new ReadException("Expected an RSA private key");
+				}
+				pr = (RSAPrivateKey) e2;
+			}
+			return new RSAKeyPair(pu, pr);
 		}
 	}
 	
@@ -223,6 +365,23 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 			}
 			java.security.KeyPair j_pair = m_generator.generateKeyPair();
 			return new RSAKeyPair(new RSAPublicKey(j_pair.getPublic()), new RSAPrivateKey(j_pair.getPrivate()));
+		}
+	}
+	
+	/**
+	 * Gets an instance of RSA key factory.
+	 * @return The key factory, or <tt>null</tt> if the factory could not be
+	 * obtained
+	 */
+	protected static KeyFactory getFactory()
+	{
+		try
+		{
+			return KeyFactory.getInstance("RSA");
+		}
+		catch (NoSuchAlgorithmException e)
+		{
+			return null;
 		}
 	}
 }

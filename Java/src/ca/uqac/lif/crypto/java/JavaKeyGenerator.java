@@ -23,6 +23,7 @@ import java.security.SecureRandom;
 import javax.crypto.SecretKey;
 
 import ca.uqac.lif.crypto.symmetric.KeyGenerator;
+import ca.uqac.lif.crypto.symmetric.SymmetricKey;
 
 /**
  * A key generator for symmetric encryption algorithms, leveraging Java's
@@ -30,7 +31,7 @@ import ca.uqac.lif.crypto.symmetric.KeyGenerator;
  * 
  * @author Sylvain Hallé
  */
-abstract class JavaKeyGenerator implements KeyGenerator<SecretKey>
+abstract class JavaKeyGenerator implements KeyGenerator<SymmetricKey<SecretKey>>
 {
 	/**
 	 * The underlying generator for keys.

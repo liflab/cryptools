@@ -1,0 +1,5 @@
+# Some of the files that may be written by the examples
+
+*.json
+*.pub
+*.pri

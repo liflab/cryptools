@@ -20,10 +20,17 @@ package ca.uqac.lif.crypto.java;
 import java.security.SecureRandom;
 
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
+import ca.uqac.lif.azrael.ObjectPrinter;
+import ca.uqac.lif.azrael.ObjectReader;
+import ca.uqac.lif.azrael.PrintException;
+import ca.uqac.lif.azrael.Printable;
+import ca.uqac.lif.azrael.ReadException;
+import ca.uqac.lif.azrael.Readable;
 import ca.uqac.lif.crypto.CryptoException;
 import ca.uqac.lif.crypto.symmetric.SymmetricCipher;
-import ca.uqac.lif.crypto.symmetric.SymmetricKey;
+import ca.uqac.lif.crypto.util.ByteArray;
 
 /**
  * Manages the encryption and key generation process for the
@@ -32,7 +39,7 @@ import ca.uqac.lif.crypto.symmetric.SymmetricKey;
  * 
  * @author Sylvain Hallé
  */
-public class DES extends JavaCipher implements SymmetricCipher<SecretKey>
+public class DES extends JavaCipher implements SymmetricCipher<ca.uqac.lif.crypto.java.DES.DESKey,byte[]>
 {
 	/**
 	 * A single publicly visible instance of the hash function.
@@ -50,13 +57,13 @@ public class DES extends JavaCipher implements SymmetricCipher<SecretKey>
 	}
 
 	@Override
-	public byte[] encrypt(SymmetricKey<SecretKey> k, byte[] m) throws CryptoException
+	public byte[] encrypt(DESKey k, byte[] m) throws CryptoException
 	{
 		return cipherEncrypt(k.getContents(), m);
 	}
 
 	@Override
-	public byte[] decrypt(SymmetricKey<SecretKey> k, byte[] m) throws CryptoException 
+	public byte[] decrypt(DESKey k, byte[] m) throws CryptoException 
 	{
 		return cipherDecrypt(k.getContents(), m);
 	}
@@ -64,11 +71,35 @@ public class DES extends JavaCipher implements SymmetricCipher<SecretKey>
 	/**
 	 * A symmetric key used by the DES algorithm.
 	 */
-	public static class DESKey extends JavaSymmetricKey
+	public static class DESKey extends JavaSymmetricKey implements Readable, Printable
 	{
 		DESKey(SecretKey k)
 		{
 			super(k);
+		}
+		
+		private DESKey()
+		{
+			super(null);
+		}
+
+		@Override
+		public Object print(ObjectPrinter<?> printer) throws PrintException
+		{
+			return printer.print(ByteArray.toHexString(m_key.getEncoded()));
+		}
+
+		@Override
+		public Object read(ObjectReader<?> reader, Object o) throws ReadException
+		{
+			Object o_read = reader.read(o);
+			if (!(o_read instanceof String))
+			{
+				throw new ReadException("Expected a hex string");
+			}
+			String key_contents = (String) o_read;
+			SecretKey sk = new SecretKeySpec(ByteArray.fromHexString(key_contents), "DES");
+			return new DESKey(sk);
 		}
 	}
 	

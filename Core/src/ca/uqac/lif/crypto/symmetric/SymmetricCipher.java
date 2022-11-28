@@ -15,12 +15,18 @@
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package ca.uqac.lif.crypto.symmetric;
 
 import ca.uqac.lif.crypto.CryptoException;
 
-public interface SymmetricCipher<T>
+/**
+ * Algorithm using the same key for encryption and decryption.
+ * @author Sylvain Hallé
+ *
+ * @param <K> The type of the key used by the algorithm
+ * @param <M> The type of the message handled by the algorithm
+ */
+public interface SymmetricCipher<K extends SymmetricKey<?>,M>
 {
 	/**
 	 * Encrypts a message using a key.
@@ -29,7 +35,7 @@ public interface SymmetricCipher<T>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the encryption could not proceed
 	 */
-	/*@ non_null @*/ public byte[] encrypt(SymmetricKey<T> k, byte[] m) throws CryptoException;
+	/*@ non_null @*/ public M encrypt(K k, M m) throws CryptoException;
 	
 	/**
 	 * Decrypts a message using a key.
@@ -38,5 +44,5 @@ public interface SymmetricCipher<T>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the decryption could not proceed
 	 */
-	public byte[] decrypt(SymmetricKey<T> k, byte[] m) throws CryptoException;
+	public M decrypt(K k, M m) throws CryptoException;
 }
