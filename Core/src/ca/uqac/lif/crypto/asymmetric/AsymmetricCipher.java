@@ -24,7 +24,8 @@ import ca.uqac.lif.crypto.CryptoException;
  * typically called the public key, and the other is called the private key.
  * @author Sylvain Hallé
  *
- * @param <PU> The type of the key used by the algorithm
+ * @param <PU> The type of the public key used by the algorithm
+ * @param <PR> The type of the private key used by the algorithm
  * @param <M> The type of the message handled by the algorithm
  */
 public interface AsymmetricCipher<PU extends PublicKey<?>,PR extends PrivateKey<?>,M>

@@ -42,4 +42,12 @@ public interface KeyPair<PU extends PublicKey<?>,PR extends PrivateKey<?>>
 	 * @throws CryptoException Thrown if the private key cannot be obtained
 	 */
 	/*@ null @*/ public PU getPublicKey() throws CryptoException;
+	
+	/**
+	 * Gets a new key pair containing only the public key. In such a case the
+	 * private key is replaced by null.
+	 * @return The new key pair
+	 * @throws CryptoException Thrown if the new key pair key cannot be created
+	 */
+	public KeyPair<PU,PR> getOnlyPublic() throws CryptoException;
 }

@@ -30,7 +30,6 @@ import ca.uqac.lif.azrael.ReadException;
 import ca.uqac.lif.azrael.Readable;
 import ca.uqac.lif.crypto.CryptoException;
 import ca.uqac.lif.crypto.symmetric.SymmetricCipher;
-import ca.uqac.lif.crypto.util.ByteArray;
 
 /**
  * Manages the encryption and key generation process for the
@@ -68,6 +67,12 @@ public class DES extends JavaCipher implements SymmetricCipher<ca.uqac.lif.crypt
 		return cipherDecrypt(k.getContents(), m);
 	}
 	
+	public static DESKey readFrom(byte[] key_contents)
+	{
+		SecretKey sk = new SecretKeySpec(key_contents, "DES");
+		return new DESKey(sk);
+	}
+	
 	/**
 	 * A symmetric key used by the DES algorithm.
 	 */
@@ -86,20 +91,19 @@ public class DES extends JavaCipher implements SymmetricCipher<ca.uqac.lif.crypt
 		@Override
 		public Object print(ObjectPrinter<?> printer) throws PrintException
 		{
-			return printer.print(ByteArray.toHexString(m_key.getEncoded()));
+			return printer.print(m_key.getEncoded());
 		}
 
 		@Override
 		public Object read(ObjectReader<?> reader, Object o) throws ReadException
 		{
 			Object o_read = reader.read(o);
-			if (!(o_read instanceof String))
+			if (!(o_read instanceof byte[]))
 			{
-				throw new ReadException("Expected a hex string");
+				throw new ReadException("Expected a byte array");
 			}
-			String key_contents = (String) o_read;
-			SecretKey sk = new SecretKeySpec(ByteArray.fromHexString(key_contents), "DES");
-			return new DESKey(sk);
+			byte[] key_contents = (byte[]) o_read;
+			return readFrom(key_contents);
 		}
 	}
 	

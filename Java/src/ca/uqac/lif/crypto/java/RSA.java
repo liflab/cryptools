@@ -68,7 +68,7 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 	 */
 	protected RSA()
 	{
-		super(getInstance("RSA"));
+		super(getInstance("RSA/ECB/PKCS1Padding"));
 	}
 
 	@Override
@@ -79,6 +79,7 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 		{
 			throw new CryptoException("Expected a public key");
 		}
+		System.out.println(m.length);
 		return cipherEncrypt((java.security.PublicKey) k.getContents(), m);
 	}
 	
@@ -332,6 +333,12 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 				pr = (RSAPrivateKey) e2;
 			}
 			return new RSAKeyPair(pu, pr);
+		}
+
+		@Override
+		public RSAKeyPair getOnlyPublic() throws CryptoException
+		{
+			return new RSAKeyPair(m_publicKey, null);
 		}
 	}
 	

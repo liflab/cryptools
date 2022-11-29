@@ -31,7 +31,7 @@ import java.util.Set;
  * @param <E> The type of the entities
  * @param <K> The type of the keys contained in this keychain
  */
-public interface KeyChain<E,K extends Key<?>>
+public interface KeyChain<E,K>
 {
 	/**
 	 * Adds a new entity-key association to this key chain.

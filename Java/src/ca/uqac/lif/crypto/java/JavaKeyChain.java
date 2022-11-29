@@ -37,7 +37,7 @@ import ca.uqac.lif.crypto.KeyChain;
  * @param <E> The type of the entities
  * @param <K> The type of the keys contained in this keychain
  */
-public class JavaKeyChain<E,K extends Key<?>> implements KeyChain<E,K>, Readable, Printable
+public class JavaKeyChain<E,K> implements KeyChain<E,K>, Readable, Printable
 {
 	/**
 	 * The map associating entities with keys.
