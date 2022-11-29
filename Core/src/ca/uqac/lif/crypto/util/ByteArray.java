@@ -36,14 +36,35 @@ public abstract class ByteArray
 	 * output stream.
 	 * @param os The output stream to write to
 	 * @param array The byte array to write
+	 * @param limit The maximum number of characters to print, -1 to impose no limit
+	 */
+	public static void printHexString(/*@ non_null @*/ OutputStream os, /*@ non_null @*/ byte[] array, int limit)
+	{
+		PrintStream ps = new PrintStream(os);
+		int cnt = 0;
+		for (byte b : array)
+		{
+			if (limit > 0 && cnt > limit)
+			{
+				break;
+			}
+			else
+			{
+				cnt++;
+			}
+			ps.print(String.format("%02X", b));
+		}
+	}
+	
+	/**
+	 * Prints the content of a byte array as a hexadecimal string into an
+	 * output stream.
+	 * @param os The output stream to write to
+	 * @param array The byte array to write
 	 */
 	public static void printHexString(/*@ non_null @*/ OutputStream os, /*@ non_null @*/ byte[] array)
 	{
-		PrintStream ps = new PrintStream(os);
-		for (byte b : array)
-		{
-			ps.print(String.format("%02X", b));
-		}
+		printHexString(os, array, -1);
 	}
 
 	/**
@@ -55,6 +76,18 @@ public abstract class ByteArray
 	{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		printHexString(baos, array);
+		return baos.toString();
+	}
+	
+	/**
+	 * Returns the first eight bytes of a byte array as a hexadecimal string.
+	 * @param array The byte array to convert
+	 * @return The hexadecimal string
+	 */
+	/*@ non_null @*/ public static String toShortHexString(/*@ non_null @*/ byte[] array)
+	{
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		printHexString(baos, array, 8);
 		return baos.toString();
 	}
 

@@ -31,7 +31,7 @@ import ca.uqac.lif.crypto.symmetric.SymmetricKey;
  * 
  * @author Sylvain Hallé
  */
-abstract class JavaKeyGenerator implements KeyGenerator<SymmetricKey<SecretKey>>
+abstract class JavaKeyGenerator<K extends SymmetricKey<SecretKey>> implements KeyGenerator<K>
 {
 	/**
 	 * The underlying generator for keys.

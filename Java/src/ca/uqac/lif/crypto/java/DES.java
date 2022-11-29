@@ -110,7 +110,7 @@ public class DES extends JavaCipher implements SymmetricCipher<ca.uqac.lif.crypt
 	/**
 	 * A generator for DES keys.
 	 */
-	public static class DESKeyGenerator extends JavaKeyGenerator
+	public static class DESKeyGenerator extends JavaKeyGenerator<DESKey>
 	{
 		public DESKeyGenerator(SecureRandom random)
 		{

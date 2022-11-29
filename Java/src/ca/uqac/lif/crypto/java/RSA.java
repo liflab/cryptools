@@ -79,7 +79,6 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 		{
 			throw new CryptoException("Expected a public key");
 		}
-		System.out.println(m.length);
 		return cipherEncrypt((java.security.PublicKey) k.getContents(), m);
 	}
 	
