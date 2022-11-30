@@ -1,17 +1,17 @@
 /*
   Simple tools for cryptographic operations
   Copyright (C) 2022 Sylvain Hallé
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
-  
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
   GNU General Public License for more details.
-  
+
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,16 +33,16 @@ public class CeasarEncryption
 		// Create a cipher, and a key that will offset characters by 3 positions
 		CeasarCipher cipher = new CeasarCipher();
 		CeasarKey k = new CeasarKey(3);
-		
+
 		// Encrypt a string and print it; should produce "KHOOR"
 		String encrypted = cipher.encrypt(k, "HELLO");
 		System.out.println(encrypted);
-		
+
 		// Decrypt the string
 		String decrypted = cipher.decrypt(k, encrypted);
 		System.out.println(decrypted);
 	}
-	
+
 	/**
 	 * Implementation of the Ceasar cipher on character strings.
 	 */	
@@ -54,7 +54,7 @@ public class CeasarEncryption
 			StringBuilder out = new StringBuilder();
 			for (int i = 0; i < m.length(); i++)
 			{
-				out.append((char) (m.charAt(i) + k.getContents()));
+				out.append((char) (m.charAt(i) + k.getOffset()));
 			}
 			return out.toString();
 		}
@@ -65,24 +65,24 @@ public class CeasarEncryption
 			StringBuilder out = new StringBuilder();
 			for (int i = 0; i < m.length(); i++)
 			{
-				out.append((char) (m.charAt(i) - k.getContents()));
+				out.append((char) (m.charAt(i) - k.getOffset()));
 			}
 			return out.toString();
 		}
 	}
-	
+
 	/**
 	 * A key used by the Ceasar cipher. In this case, the key is simply an
 	 * integer number representing by how many characters forward or backward in
 	 * the alphabet each input character should be shifted.
 	 */
-	public static class CeasarKey implements SymmetricKey<Integer>
+	public static class CeasarKey implements SymmetricKey
 	{
 		/**
 		 * The number of characters by which to offset the original message.
 		 */
 		protected final int m_offset;
-		
+
 		/**
 		 * Creates a new key with a given offset.
 		 * @param offset The offset
@@ -93,8 +93,7 @@ public class CeasarEncryption
 			m_offset = offset;
 		}
 
-		@Override
-		public Integer getContents()
+		public Integer getOffset()
 		{
 			return m_offset;
 		}

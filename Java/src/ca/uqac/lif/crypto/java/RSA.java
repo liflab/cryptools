@@ -117,7 +117,7 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 	/**
 	 * A public key for the RSA algorithm.
 	 */
-	public static class RSAPublicKey implements PublicKey<java.security.PublicKey>, Readable, Printable
+	public static class RSAPublicKey implements PublicKey, Readable, Printable
 	{
 		/**
 		 * The underlying Java {@link PublicKey} object contained in this
@@ -145,8 +145,12 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 			this(null);
 		}
 
-		@Override
-		public java.security.PublicKey getContents()
+		/**
+		 * Gets the Java {@link java.security.PublicKey PublicKey} object
+		 * contained in this private key.
+		 * @return The public key object
+		 */
+		/*@ pure @*/ public java.security.PublicKey getContents()
 		{
 			return m_key;
 		}
@@ -181,7 +185,7 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 	/**
 	 * A private key for the RSA algorithm.
 	 */
-	public static class RSAPrivateKey implements PrivateKey<java.security.PrivateKey>, Readable, Printable
+	public static class RSAPrivateKey implements PrivateKey, Readable, Printable
 	{
 		/**
 		 * The underlying Java {@link PrivateKey} object contained in this
@@ -209,8 +213,12 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 			this(null);
 		}
 
-		@Override
-		public java.security.PrivateKey getContents()
+		/**
+		 * Gets the Java {@link java.security.PrivateKey PrivateKey} object
+		 * contained in this private key.
+		 * @return The private key object
+		 */
+		/*@ pure @*/ public java.security.PrivateKey getContents()
 		{
 			return m_key;
 		}

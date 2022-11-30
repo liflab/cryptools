@@ -29,6 +29,7 @@ import ca.uqac.lif.azrael.Printable;
 import ca.uqac.lif.azrael.ReadException;
 import ca.uqac.lif.azrael.Readable;
 import ca.uqac.lif.crypto.CryptoException;
+import ca.uqac.lif.crypto.symmetric.ByteKeyConverter;
 import ca.uqac.lif.crypto.symmetric.SymmetricCipher;
 
 /**
@@ -43,9 +44,18 @@ public class DES extends JavaCipher implements SymmetricCipher<ca.uqac.lif.crypt
 	/**
 	 * A single publicly visible instance of the hash function.
 	 */
-	public static final DES instance = new DES();
+	/*@ non_null @*/ public static final DES instance = new DES();
 	
-	public static final DESKeyGenerator generator = new DESKeyGenerator();
+	/**
+	 * A static reference to an instance of DES key generator with default
+	 * settings.
+	 */
+	/*@ non_null @*/ public static final DESKeyGenerator generator = new DESKeyGenerator();
+	
+	/**
+	 * A static reference to an instance of DES byte key converter.
+	 */
+	/*@ non_null @*/ public static final DESByteKeyConverter converter = new DESByteKeyConverter();
 	
 	/**
 	 * Creates a new DES encryption function.
@@ -130,6 +140,26 @@ public class DES extends JavaCipher implements SymmetricCipher<ca.uqac.lif.crypt
 				m_generator.init(m_random);
 			}
 			return new DESKey(m_generator.generateKey());
+		}
+	}
+	
+	/**
+	 * Converts DES keys into byte arrays.
+	 * @author Sylvain Hallé
+	 */
+	public static class DESByteKeyConverter implements ByteKeyConverter<DESKey>
+	{
+		@Override
+		public byte[] getBytes(DESKey key)
+		{
+			SecretKey sk = key.getContents();
+			return sk.getEncoded();
+		}
+
+		@Override
+		public DESKey getKey(byte[] contents)
+		{
+			return DES.readFrom(contents);
 		}
 	}
 }

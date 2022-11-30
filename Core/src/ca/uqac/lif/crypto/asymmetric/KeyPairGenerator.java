@@ -25,7 +25,7 @@ import ca.uqac.lif.crypto.CryptoException;
  *
  * @param <T> The type of the key contents
  */
-public interface KeyPairGenerator<PU extends PublicKey<?>,PR extends PrivateKey<?>>
+public interface KeyPairGenerator<PU extends PublicKey,PR extends PrivateKey>
 {
 	/**
 	 * Generates a new public-private key pair.

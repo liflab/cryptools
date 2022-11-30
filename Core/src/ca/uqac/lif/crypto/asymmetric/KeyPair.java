@@ -25,7 +25,7 @@ import ca.uqac.lif.crypto.CryptoException;
  * private key.
  * @author Sylvain Hallé
  */
-public interface KeyPair<PU extends PublicKey<?>,PR extends PrivateKey<?>>
+public interface KeyPair<PU extends PublicKey,PR extends PrivateKey>
 {
 	/**
 	 * Gets the private key contained in this key pair.

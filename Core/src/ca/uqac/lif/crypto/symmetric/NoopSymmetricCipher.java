@@ -29,7 +29,7 @@ import ca.uqac.lif.crypto.CryptoException;
  * @param <K> The type of the key used by the algorithm
  * @param <M> The type of the message handled by the algorithm
  */
-public class NoopSymmetricCipher<K extends SymmetricKey<?>,M> implements SymmetricCipher<K,M>
+public class NoopSymmetricCipher<K extends SymmetricKey,M> implements SymmetricCipher<K,M>
 {
 	@Override
 	public M encrypt(K k, M m) throws CryptoException

@@ -258,7 +258,7 @@ abstract class JavaCipher
 	/**
 	 * A symmetric key whose contents is a Java {@link SecretKey} object.
 	 */
-	abstract static class JavaSymmetricKey implements SymmetricKey<SecretKey>
+	abstract static class JavaSymmetricKey implements SymmetricKey
 	{
 		/**
 		 * The underlying {@link SecretKey} object which is the content
@@ -277,7 +277,6 @@ abstract class JavaCipher
 			m_key = k;
 		}
 		
-		@Override
 		/*@ pure non_null @*/ public SecretKey getContents()
 		{
 			return m_key;

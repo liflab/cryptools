@@ -134,7 +134,7 @@ public class JavaKeyChain<E,K> implements KeyChain<E,K>, Readable, Printable
 		{
 			Object k = e.getKey();
 			Object v = e.getValue();
-			if (!(v instanceof Key<?>))
+			if (!(v instanceof Key))
 			{
 				throw new ReadException("Expected a key");
 			}

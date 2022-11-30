@@ -30,7 +30,7 @@ import ca.uqac.lif.crypto.asymmetric.PublicKey;
  * 
  * @author Sylvain Hallé
  */
-abstract class JavaKeyPairGenerator<PU extends PublicKey<java.security.PublicKey>,PR extends PrivateKey<java.security.PrivateKey>> implements KeyPairGenerator<PU,PR>
+abstract class JavaKeyPairGenerator<PU extends PublicKey,PR extends PrivateKey> implements KeyPairGenerator<PU,PR>
 {
 	/**
 	 * The underlying generator for key pairs.

@@ -28,7 +28,7 @@ import ca.uqac.lif.crypto.CryptoException;
  * @param <PR> The type of the private key used by the algorithm
  * @param <M> The type of the message handled by the algorithm
  */
-public interface AsymmetricCipher<PU extends PublicKey<?>,PR extends PrivateKey<?>,M>
+public interface AsymmetricCipher<PU extends PublicKey,PR extends PrivateKey,M>
 {
 	/**
 	 * Encrypts a message using a public key.

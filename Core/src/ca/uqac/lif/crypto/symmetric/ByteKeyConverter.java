@@ -20,29 +20,26 @@ package ca.uqac.lif.crypto.symmetric;
 import ca.uqac.lif.crypto.CryptoException;
 
 /**
- * Algorithm using the same key for encryption and decryption.
+ * Converts a symmetric encryption key to and from an array of bytes.
  * @author Sylvain Hallé
  *
- * @param <K> The type of the key used by the algorithm
- * @param <M> The type of the message handled by the algorithm
+ * @param <K> The key type handled by this converter
  */
-public interface SymmetricCipher<K extends SymmetricKey,M>
+public interface ByteKeyConverter<K extends SymmetricKey>
 {
 	/**
-	 * Encrypts a message using a key.
-	 * @param k The key
-	 * @param m The message to encrypt
-	 * @return The encrypted message
-	 * @throws CryptoException Thrown if the encryption could not proceed
+	 * Gets the bytes from a key.
+	 * @param key The key
+	 * @return The bytes
+	 * @throws CryptoException If the bytes could not be recovered from the key
 	 */
-	/*@ non_null @*/ public M encrypt(K k, M m) throws CryptoException;
+	/*@ non_null @*/ public byte[] getBytes(/*@ non_null @*/ K key) throws CryptoException;
 	
 	/**
-	 * Decrypts a message using a key.
-	 * @param k The key
-	 * @param m The message to decrypt
-	 * @return The encrypted message
-	 * @throws CryptoException Thrown if the decryption could not proceed
+	 * Gets a key from its byte contents.
+	 * @param contents The bytes
+	 * @return The key
+	 * @throws CryptoException If the key could not be recovered from the bytes
 	 */
-	public M decrypt(K k, M m) throws CryptoException;
+	/*@ non_null @*/ public K getKey(/*@ non_null @*/ byte[] contents);
 }

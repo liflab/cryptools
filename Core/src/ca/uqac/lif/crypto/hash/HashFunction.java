@@ -22,16 +22,19 @@ import ca.uqac.lif.crypto.CryptoException;
 /**
  * Function that produces a digest out of an array of bytes, and which
  * satisfies the conditions of a hash function.
+ * 
+ * @param <O> The type of the hashed objects
+ * @param <H> The type of the computed hash
  * @author Sylvain Hallé
  */
-public interface HashFunction 
+public interface HashFunction<O,H>
 {
 	/**
-	 * Gets a digest out of an array of bytes.
-	 * @param m The array of bytes
+	 * Gets a digest out of an input object.
+	 * @param o The object
 	 * @return The digest
 	 * @throws CryptoException Thrown if the digest calculation cannot be
 	 * executed
 	 */
-	/*@ non_null @*/ public byte[] getDigest(byte[] m) throws CryptoException;
+	/*@ non_null @*/ public H getDigest(/*@ non_null @*/ O o) throws CryptoException;
 }

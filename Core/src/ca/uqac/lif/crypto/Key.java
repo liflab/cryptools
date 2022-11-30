@@ -17,7 +17,6 @@
  */
 package ca.uqac.lif.crypto;
 
-public interface Key<T>
+public interface Key
 {
-	public T getContents();
 }

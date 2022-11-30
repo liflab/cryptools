@@ -15,34 +15,36 @@
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package ca.uqac.lif.crypto.symmetric;
+package ca.uqac.lif.crypto.java;
 
 import ca.uqac.lif.crypto.CryptoException;
+import ca.uqac.lif.crypto.hash.HashFunction;
 
 /**
- * Algorithm using the same key for encryption and decryption.
+ * A hash function that takes as input an arbitrary object, and returns as its
+ * digest the return value of calling
+ * {@link ObjectHashFunction#hashCode() hashCode()} on this object.
+ * 
  * @author Sylvain Hallé
- *
- * @param <K> The type of the key used by the algorithm
- * @param <M> The type of the message handled by the algorithm
  */
-public interface SymmetricCipher<K extends SymmetricKey,M>
+public class ObjectHashFunction implements HashFunction<Object,Integer>
 {
 	/**
-	 * Encrypts a message using a key.
-	 * @param k The key
-	 * @param m The message to encrypt
-	 * @return The encrypted message
-	 * @throws CryptoException Thrown if the encryption could not proceed
+	 * A reference to a single visible instance of the object hash function.
 	 */
-	/*@ non_null @*/ public M encrypt(K k, M m) throws CryptoException;
+	/*@ non_null @*/ public static ObjectHashFunction instance = new ObjectHashFunction();
 	
 	/**
-	 * Decrypts a message using a key.
-	 * @param k The key
-	 * @param m The message to decrypt
-	 * @return The encrypted message
-	 * @throws CryptoException Thrown if the decryption could not proceed
+	 * Creates a new object has function.
 	 */
-	public M decrypt(K k, M m) throws CryptoException;
+	protected ObjectHashFunction()
+	{
+		super();
+	}
+	
+	@Override
+	/*@ non_null @*/ public Integer getDigest(/*@ non_null @*/ Object o) throws CryptoException
+	{
+		return o.hashCode();
+	}
 }

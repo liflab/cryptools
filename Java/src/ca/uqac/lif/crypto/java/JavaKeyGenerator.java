@@ -20,8 +20,6 @@ package ca.uqac.lif.crypto.java;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import javax.crypto.SecretKey;
-
 import ca.uqac.lif.crypto.symmetric.KeyGenerator;
 import ca.uqac.lif.crypto.symmetric.SymmetricKey;
 
@@ -31,7 +29,7 @@ import ca.uqac.lif.crypto.symmetric.SymmetricKey;
  * 
  * @author Sylvain Hallé
  */
-abstract class JavaKeyGenerator<K extends SymmetricKey<SecretKey>> implements KeyGenerator<K>
+abstract class JavaKeyGenerator<K extends SymmetricKey> implements KeyGenerator<K>
 {
 	/**
 	 * The underlying generator for keys.

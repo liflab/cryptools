@@ -19,7 +19,7 @@ package ca.uqac.lif.crypto.asymmetric;
 
 import ca.uqac.lif.crypto.Key;
 
-public interface PublicKey<T> extends Key<T>
+public interface PublicKey extends Key
 {
 
 }

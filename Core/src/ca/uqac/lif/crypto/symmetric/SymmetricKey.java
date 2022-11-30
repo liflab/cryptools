@@ -20,7 +20,7 @@ package ca.uqac.lif.crypto.symmetric;
 
 import ca.uqac.lif.crypto.Key;
 
-public interface SymmetricKey<T> extends Key<T>
+public interface SymmetricKey extends Key
 {
 
 }
