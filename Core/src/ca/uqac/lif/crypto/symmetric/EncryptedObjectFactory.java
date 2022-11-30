@@ -33,19 +33,19 @@ public interface EncryptedObjectFactory<T,K extends SymmetricKey,E,C extends Sym
 {
 	/**
 	 * Produces an encrypted object.
-	 * @param t The object to encrypt
 	 * @param k The key used for the encryption
+	 * @param t The object to encrypt
 	 * @return The encrypted object
 	 * @throws CryptoException Thrown if the object could not be encrypted
 	 */
-	/*@ non_null @*/ public EncryptedObject<T,E> encryptObject(T t, K k) throws CryptoException;
+	/*@ non_null @*/ public EncryptedObject<T,E> encryptObject(K k, T t) throws CryptoException;
 	
 	/**
 	 * Recovers an object from an encrypted object.
-	 * @param e The encrypted object
 	 * @param k The key used for the decryption
+	 * @param e The encrypted object
 	 * @return The decrypted object
 	 * @throws CryptoException Thrown if the object could not be decrypted
 	 */
-	/*@ non_null @*/ public T decryptObject(EncryptedObject<T,E> e, K k) throws CryptoException;
+	/*@ non_null @*/ public T decryptObject(K k, EncryptedObject<T,E> e) throws CryptoException;
 }
