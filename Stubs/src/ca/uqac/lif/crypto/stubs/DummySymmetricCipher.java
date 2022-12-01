@@ -135,6 +135,12 @@ public class DummySymmetricCipher implements SymmetricObjectCipher
 		{
 			return o instanceof DummySymmetricKey && m_name.compareTo(((DummySymmetricKey) o).m_name) == 0;
 		}
+		
+		@Override
+		public String toString()
+		{
+			return getName();
+		}
 	}
 	
 	/**
