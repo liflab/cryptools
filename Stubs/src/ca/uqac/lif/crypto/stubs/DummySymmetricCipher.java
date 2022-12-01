@@ -63,7 +63,7 @@ public class DummySymmetricCipher implements ObjectSymmetricCipher<ca.uqac.lif.c
 			throw new CryptoException("Invalid input object type");
 		}
 		EncryptedObject eo = (EncryptedObject) m;
-		if (!k.equals(eo.m_key))
+		if (k.getName().compareTo(eo.getKeyName()) != 0)
 		{
 			throw new CryptoException("Cannot decrypt object");
 		}
@@ -144,83 +144,6 @@ public class DummySymmetricCipher implements ObjectSymmetricCipher<ca.uqac.lif.c
 		public DummySymmetricKey generateKey(String name) throws CryptoException
 		{
 			return new DummySymmetricKey(name);
-		}
-	}
-	
-	/**
-	 * An object representing the fictitious "encryption" of a value with a
-	 * symmetric key. The resulting object only stores the key <i>K</i> and the
-	 * original object <i>O</i>, and its string representation is
-	 * "E[<i>K</i>,<i>O</i>]".
-	 * <p>
-	 * Despite this, an encrypted object is expected to mimic some of the
-	 * properties of an actually encrypted value: two such objects are considered
-	 * equal if and only if they contain the same internal object encrypted with
-	 * the same key.
-	 */
-	public static class EncryptedObject
-	{
-		/**
-		 * The key used to "encrypt" the object.
-		 */
-		/*@ non_null @*/ protected final DummySymmetricKey m_key;
-		
-		/**
-		 * The "encrypted" object.
-		 */
-		/*@ non_null @*/ protected final Object m_object;
-		
-		/**
-		 * Creates a new encrypted object.
-		 * @param k The key used to "encrypt" the object
-		 * @param o The "encrypted" object
-		 */
-		EncryptedObject(/*@ non_null @*/ DummySymmetricKey k, /*@ non_null @*/ Object o)
-		{
-			super();
-			m_key = k;
-			m_object = o;
-		}
-		
-		/**
-		 * Gets the key used to encrypt this object.
-		 * @return The key
-		 */
-		/*@ non_null @*/ public DummySymmetricKey getKey()
-		{
-			return m_key;
-		}
-		
-		/**
-		 * Gets the object that is supposedly encrypted.
-		 * @return The object
-		 */
-		/*@ non_null @*/ public Object getObject()
-		{
-			return m_object;
-		}
-		
-		@Override
-		public String toString()
-		{
-			return "E[" + m_key.getName() + "," + m_object.toString() + "]";
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return m_key.hashCode() + m_object.hashCode();
-		}
-		
-		@Override
-		public boolean equals(Object o)
-		{
-			if (!(o instanceof EncryptedObject))
-			{
-				return false;
-			}
-			EncryptedObject eo = (EncryptedObject) o;
-			return m_key.equals(eo.m_key) && m_object.equals(eo.m_object);
 		}
 	}
 }
