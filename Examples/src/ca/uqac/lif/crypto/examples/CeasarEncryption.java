@@ -46,26 +46,26 @@ public class CeasarEncryption
 	/**
 	 * Implementation of the Ceasar cipher on character strings.
 	 */	
-	public static class CeasarCipher implements SymmetricCipher<CeasarKey,String>
+	public static class CeasarCipher implements SymmetricCipher<String>
 	{
 		@Override
-		public String encrypt(CeasarKey k, String m) throws CryptoException
+		public String encrypt(SymmetricKey k, String m) throws CryptoException
 		{
 			StringBuilder out = new StringBuilder();
 			for (int i = 0; i < m.length(); i++)
 			{
-				out.append((char) (m.charAt(i) + k.getOffset()));
+				out.append((char) (m.charAt(i) + ((CeasarKey) k).getOffset()));
 			}
 			return out.toString();
 		}
 
 		@Override
-		public String decrypt(CeasarKey k, String m) throws CryptoException
+		public String decrypt(SymmetricKey k, String m) throws CryptoException
 		{
 			StringBuilder out = new StringBuilder();
 			for (int i = 0; i < m.length(); i++)
 			{
-				out.append((char) (m.charAt(i) - k.getOffset()));
+				out.append((char) (m.charAt(i) - ((CeasarKey) k).getOffset()));
 			}
 			return out.toString();
 		}

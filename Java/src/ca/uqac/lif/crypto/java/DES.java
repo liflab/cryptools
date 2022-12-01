@@ -31,6 +31,7 @@ import ca.uqac.lif.azrael.Readable;
 import ca.uqac.lif.crypto.CryptoException;
 import ca.uqac.lif.crypto.symmetric.ByteKeyConverter;
 import ca.uqac.lif.crypto.symmetric.SymmetricCipher;
+import ca.uqac.lif.crypto.symmetric.SymmetricKey;
 
 /**
  * Manages the encryption and key generation process for the
@@ -39,7 +40,7 @@ import ca.uqac.lif.crypto.symmetric.SymmetricCipher;
  * 
  * @author Sylvain Hallé
  */
-public class DES extends JavaCipher implements SymmetricCipher<ca.uqac.lif.crypto.java.DES.DESKey,byte[]>
+public class DES extends JavaCipher implements SymmetricCipher<byte[]>
 {
 	/**
 	 * A single publicly visible instance of the hash function.
@@ -66,15 +67,23 @@ public class DES extends JavaCipher implements SymmetricCipher<ca.uqac.lif.crypt
 	}
 
 	@Override
-	public byte[] encrypt(DESKey k, byte[] m) throws CryptoException
+	public byte[] encrypt(SymmetricKey k, byte[] m) throws CryptoException
 	{
-		return cipherEncrypt(k.getContents(), m);
+		if (!(k instanceof DESKey))
+		{
+			throw new CryptoException("Expected a DESKey");
+		}
+		return cipherEncrypt(((DESKey) k).getContents(), m);
 	}
 
 	@Override
-	public byte[] decrypt(DESKey k, byte[] m) throws CryptoException 
+	public byte[] decrypt(SymmetricKey k, byte[] m) throws CryptoException 
 	{
-		return cipherDecrypt(k.getContents(), m);
+		if (!(k instanceof DESKey))
+		{
+			throw new CryptoException("Expected a DESKey");
+		}
+		return cipherDecrypt(((DESKey) k).getContents(), m);
 	}
 	
 	public static DESKey readFrom(byte[] key_contents)
@@ -137,7 +146,7 @@ public class DES extends JavaCipher implements SymmetricCipher<ca.uqac.lif.crypt
 	/**
 	 * A generator for DES keys.
 	 */
-	public static class DESKeyGenerator extends JavaKeyGenerator<DESKey>
+	public static class DESKeyGenerator extends JavaKeyGenerator
 	{
 		public DESKeyGenerator(SecureRandom random)
 		{

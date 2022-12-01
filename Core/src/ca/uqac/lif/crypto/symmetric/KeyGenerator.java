@@ -25,14 +25,14 @@ import ca.uqac.lif.crypto.CryptoException;
  *
  * @param <K> The type of the key contents
  */
-public interface KeyGenerator<K extends SymmetricKey>
+public interface KeyGenerator
 {
 	/**
 	 * Generates a new key.
 	 * @return The generated key
 	 * @throws CryptoException Thrown if the key could not be generated
 	 */
-	/*@ non_null @*/ public K generateKey() throws CryptoException;
+	/*@ non_null @*/ public SymmetricKey generateKey() throws CryptoException;
 	
 	/**
 	 * Generates a new key and assigns it a name.
@@ -40,5 +40,5 @@ public interface KeyGenerator<K extends SymmetricKey>
 	 * @return The generated key
 	 * @throws CryptoException Thrown if the key could not be generated
 	 */
-	/*@ non_null @*/ public K generateKey(/*@ non_null @*/ String name) throws CryptoException;
+	/*@ non_null @*/ public SymmetricKey generateKey(/*@ non_null @*/ String name) throws CryptoException;
 }

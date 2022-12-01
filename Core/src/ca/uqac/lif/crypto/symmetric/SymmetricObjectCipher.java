@@ -21,9 +21,8 @@ package ca.uqac.lif.crypto.symmetric;
  * A symmetric cipher that encrypts objects into other objects.
  * @author Sylvain Hallé
  *
- * @param <K> The key type
  */
-public interface SymmetricObjectCipher<K extends SymmetricKey> extends SymmetricCipher<K,Object>
+public interface SymmetricObjectCipher extends SymmetricCipher<Object>
 {
 
 }

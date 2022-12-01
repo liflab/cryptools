@@ -28,7 +28,7 @@ import ca.uqac.lif.crypto.symmetric.SymmetricKey;
  * 
  * @author Sylvain Hallé
  */
-public class DummySymmetricCipher implements SymmetricObjectCipher<ca.uqac.lif.crypto.stubs.DummySymmetricCipher.DummySymmetricKey>
+public class DummySymmetricCipher implements SymmetricObjectCipher
 {
 	/**
 	 * A single publicly visible instance of the dummy symmetric cipher.
@@ -50,14 +50,22 @@ public class DummySymmetricCipher implements SymmetricObjectCipher<ca.uqac.lif.c
 	}
 	
 	@Override
-	public Object encrypt(DummySymmetricKey k, Object m) throws CryptoException
+	public Object encrypt(SymmetricKey k, Object m) throws CryptoException
 	{
+		if (!(k instanceof DummySymmetricKey))
+		{
+			throw new CryptoException("Expected a DummySymmetricKey");
+		}
 		return new EncryptedObject(k, m);
 	}
 
 	@Override
-	public Object decrypt(DummySymmetricKey k, Object m) throws CryptoException
+	public Object decrypt(SymmetricKey k, Object m) throws CryptoException
 	{
+		if (!(k instanceof DummySymmetricKey))
+		{
+			throw new CryptoException("Expected a DummySymmetricKey");
+		}
 		if (!(m instanceof EncryptedObject))
 		{
 			throw new CryptoException("Invalid input object type");
@@ -132,7 +140,7 @@ public class DummySymmetricCipher implements SymmetricObjectCipher<ca.uqac.lif.c
 	/**
 	 * A generator for dummy symmetric encryption keys.
 	 */
-	protected static class DummyKeyGenerator implements KeyGenerator<DummySymmetricKey>
+	protected static class DummyKeyGenerator implements KeyGenerator
 	{
 		@Override
 		public DummySymmetricKey generateKey() throws CryptoException

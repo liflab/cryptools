@@ -30,28 +30,28 @@ import ca.uqac.lif.crypto.CryptoException;
  * @param <PR> The type of the private key used by the algorithm
  * @param <M> The type of the message handled by the algorithm
  */
-public class NoopAsymmetricCipher<PU extends PublicKey,PR extends PrivateKey,M> implements AsymmetricCipher<PU,PR,M>
+public class NoopAsymmetricCipher<M> implements AsymmetricCipher<M>
 {
 	@Override
-	public M encrypt(PU k, M m) throws CryptoException
+	public M encrypt(PublicKey k, M m) throws CryptoException
 	{
 		return m;
 	}
 
 	@Override
-	public M encrypt(PR k, M m) throws CryptoException
+	public M encrypt(PrivateKey k, M m) throws CryptoException
 	{
 		return m;
 	}
 
 	@Override
-	public M decrypt(PU k, M m) throws CryptoException
+	public M decrypt(PublicKey k, M m) throws CryptoException
 	{
 		return m;
 	}
 
 	@Override
-	public M decrypt(PR k, M m) throws CryptoException
+	public M decrypt(PrivateKey k, M m) throws CryptoException
 	{
 		return m;
 	}

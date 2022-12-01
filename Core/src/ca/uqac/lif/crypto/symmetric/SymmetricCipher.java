@@ -23,10 +23,9 @@ import ca.uqac.lif.crypto.CryptoException;
  * Algorithm using the same key for encryption and decryption.
  * @author Sylvain Hallé
  *
- * @param <K> The type of the key used by the algorithm
  * @param <M> The type of the message handled by the algorithm
  */
-public interface SymmetricCipher<K extends SymmetricKey,M>
+public interface SymmetricCipher<M>
 {
 	/**
 	 * Encrypts a message using a key.
@@ -35,7 +34,7 @@ public interface SymmetricCipher<K extends SymmetricKey,M>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the encryption could not proceed
 	 */
-	/*@ non_null @*/ public M encrypt(K k, M m) throws CryptoException;
+	/*@ non_null @*/ public M encrypt(SymmetricKey k, M m) throws CryptoException;
 	
 	/**
 	 * Decrypts a message using a key.
@@ -44,5 +43,5 @@ public interface SymmetricCipher<K extends SymmetricKey,M>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the decryption could not proceed
 	 */
-	public M decrypt(K k, M m) throws CryptoException;
+	public M decrypt(SymmetricKey k, M m) throws CryptoException;
 }

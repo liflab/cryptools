@@ -22,17 +22,15 @@ import ca.uqac.lif.crypto.CryptoException;
 /**
  * Generates key pairs for an asymmetric encryption algorithm.
  * @author Sylvain Hallé
- *
- * @param <T> The type of the key contents
  */
-public interface KeyPairGenerator<PU extends PublicKey,PR extends PrivateKey>
+public interface KeyPairGenerator
 {
 	/**
 	 * Generates a new public-private key pair.
 	 * @return The generated key pair
 	 * @throws CryptoException Thrown if the key could not be generated
 	 */
-	/*@ non_null @*/ public KeyPair<PU,PR> generateKeyPair() throws CryptoException;
+	/*@ non_null @*/ public KeyPair generateKeyPair() throws CryptoException;
 	
 	/**
 	 * Generates a new public-private key pair.
@@ -41,5 +39,5 @@ public interface KeyPairGenerator<PU extends PublicKey,PR extends PrivateKey>
 	 * @return The generated key pair
 	 * @throws CryptoException Thrown if the key could not be generated
 	 */
-	/*@ non_null @*/ public KeyPair<PU,PR> generateKeyPair(/*@ non_null @*/ String pu, /*@ non_null @*/ String pr) throws CryptoException;
+	/*@ non_null @*/ public KeyPair generateKeyPair(/*@ non_null @*/ String pu, /*@ non_null @*/ String pr) throws CryptoException;
 }

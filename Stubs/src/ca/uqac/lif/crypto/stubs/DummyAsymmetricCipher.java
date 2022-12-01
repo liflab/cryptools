@@ -25,7 +25,7 @@ import ca.uqac.lif.crypto.asymmetric.AsymmetricObjectCipher;
 import ca.uqac.lif.crypto.asymmetric.PrivateKey;
 import ca.uqac.lif.crypto.asymmetric.PublicKey;
 
-public class DummyAsymmetricCipher implements AsymmetricObjectCipher<ca.uqac.lif.crypto.stubs.DummyAsymmetricCipher.DummyPublicKey,ca.uqac.lif.crypto.stubs.DummyAsymmetricCipher.DummyPrivateKey>
+public class DummyAsymmetricCipher implements AsymmetricObjectCipher
 {
 	/**
 	 * A single publicly visible instance of the dummy asymmetric cipher.
@@ -47,26 +47,42 @@ public class DummyAsymmetricCipher implements AsymmetricObjectCipher<ca.uqac.lif
 	}
 	
 	@Override
-	public Object encrypt(DummyPublicKey k, Object m) throws CryptoException
+	public Object encrypt(PublicKey k, Object m) throws CryptoException
 	{
+		if (!(k instanceof DummyPublicKey))
+		{
+			throw new CryptoException("Expected a DummyPublicKey");
+		}
 		return dummyEncrypt(k, m);
 	}
 
 	@Override
-	public Object encrypt(DummyPrivateKey k, Object m) throws CryptoException
+	public Object encrypt(PrivateKey k, Object m) throws CryptoException
 	{
+		if (!(k instanceof DummyPrivateKey))
+		{
+			throw new CryptoException("Expected a DummyPublicKey");
+		}
 		return dummyEncrypt(k, m);
 	}
 
 	@Override
-	public Object decrypt(DummyPublicKey k, Object m) throws CryptoException
+	public Object decrypt(PublicKey k, Object m) throws CryptoException
 	{
+		if (!(k instanceof DummyPublicKey))
+		{
+			throw new CryptoException("Expected a DummyPublicKey");
+		}
 		return dummyDecrypt(k.getName(), m);
 	}
 
 	@Override
-	public Object decrypt(DummyPrivateKey k, Object m) throws CryptoException
+	public Object decrypt(PrivateKey k, Object m) throws CryptoException
 	{
+		if (!(k instanceof DummyPrivateKey))
+		{
+			throw new CryptoException("Expected a DummyPublicKey");
+		}
 		return dummyDecrypt(k.getName(), m);
 	}
 	
@@ -232,16 +248,16 @@ public class DummyAsymmetricCipher implements AsymmetricObjectCipher<ca.uqac.lif
 	/**
 	 * A generator of dummy key pairs.
 	 */
-	public static class DummyKeyPairGenerator implements KeyPairGenerator<DummyPublicKey,DummyPrivateKey>
+	public static class DummyKeyPairGenerator implements KeyPairGenerator
 	{
 		@Override
-		public KeyPair<DummyPublicKey,DummyPrivateKey> generateKeyPair() throws CryptoException
+		public KeyPair generateKeyPair() throws CryptoException
 		{
 			return generateKeyPair("", "");
 		}
 
 		@Override
-		public KeyPair<DummyPublicKey,DummyPrivateKey> generateKeyPair(String pu, String pr) throws CryptoException
+		public KeyPair generateKeyPair(String pu, String pr) throws CryptoException
 		{
 			return new DummyKeyPair(new DummyPublicKey(pu), new DummyPrivateKey(pr));
 		}
@@ -250,7 +266,7 @@ public class DummyAsymmetricCipher implements AsymmetricObjectCipher<ca.uqac.lif
 	/**
 	 * A pair of dummy public and private keys.
 	 */
-	protected static class DummyKeyPair implements KeyPair<DummyPublicKey,DummyPrivateKey>
+	protected static class DummyKeyPair implements KeyPair
 	{
 		/**
 		 * The private key of this key pair.
@@ -287,7 +303,7 @@ public class DummyAsymmetricCipher implements AsymmetricObjectCipher<ca.uqac.lif
 		}
 
 		@Override
-		public KeyPair<DummyPublicKey, DummyPrivateKey> getOnlyPublic() throws CryptoException
+		public KeyPair getOnlyPublic() throws CryptoException
 		{
 			return new DummyKeyPair(m_publicKey, null);
 		}

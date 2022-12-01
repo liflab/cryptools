@@ -24,7 +24,7 @@ package ca.uqac.lif.crypto.asymmetric;
  * @param <PU> The type of the public key
  * @param <PR> The type of the private key
  */
-public interface AsymmetricObjectCipher<PU extends PublicKey,PR extends PrivateKey> extends AsymmetricCipher<PU,PR,Object>
+public interface AsymmetricObjectCipher extends AsymmetricCipher<Object>
 {
 
 }

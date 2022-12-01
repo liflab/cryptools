@@ -21,8 +21,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import ca.uqac.lif.crypto.asymmetric.KeyPairGenerator;
-import ca.uqac.lif.crypto.asymmetric.PrivateKey;
-import ca.uqac.lif.crypto.asymmetric.PublicKey;
 
 /**
  * A key generator for asymmetric encryption algorithms, leveraging Java's
@@ -30,7 +28,7 @@ import ca.uqac.lif.crypto.asymmetric.PublicKey;
  * 
  * @author Sylvain Hallé
  */
-abstract class JavaKeyPairGenerator<PU extends PublicKey,PR extends PrivateKey> implements KeyPairGenerator<PU,PR>
+abstract class JavaKeyPairGenerator implements KeyPairGenerator
 {
 	/**
 	 * The underlying generator for key pairs.

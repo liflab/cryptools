@@ -46,7 +46,7 @@ import ca.uqac.lif.crypto.asymmetric.PublicKey;
  * 
  * @author Sylvain Hallé
  */
-public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.crypto.java.RSA.RSAPublicKey,ca.uqac.lif.crypto.java.RSA.RSAPrivateKey,byte[]>
+public class RSA extends JavaCipher implements AsymmetricCipher<byte[]>
 {
 	/**
 	 * A single publicly visible instance of the hash function.
@@ -72,47 +72,63 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 	}
 
 	@Override
-	public byte[] encrypt(RSAPublicKey k, byte[] m) throws CryptoException
+	public byte[] encrypt(PublicKey k, byte[] m) throws CryptoException
 	{
-		java.security.Key o_k = k.getContents();
+		if (!(k instanceof RSAPublicKey))
+		{
+			throw new CryptoException("Expected a RSAPublicKey");
+		}
+		java.security.Key o_k = ((RSAPublicKey) k).getContents();
 		if (!(o_k instanceof java.security.PublicKey))
 		{
 			throw new CryptoException("Expected a public key");
 		}
-		return cipherEncrypt((java.security.PublicKey) k.getContents(), m);
+		return cipherEncrypt((java.security.PublicKey) o_k, m);
 	}
 	
 	@Override
-	public byte[] encrypt(RSAPrivateKey k, byte[] m) throws CryptoException
+	public byte[] encrypt(PrivateKey k, byte[] m) throws CryptoException
 	{
-		java.security.Key o_k = k.getContents();
+		if (!(k instanceof RSAPrivateKey))
+		{
+			throw new CryptoException("Expected a RSAPrivateKey");
+		}
+		java.security.Key o_k = ((RSAPrivateKey) k).getContents();
 		if (!(o_k instanceof java.security.PrivateKey))
 		{
 			throw new CryptoException("Expected a private key");
 		}
-		return cipherEncrypt((java.security.PrivateKey) k.getContents(), m);
+		return cipherEncrypt((java.security.PrivateKey) o_k, m);
 	}
 
 	@Override
-	public byte[] decrypt(RSAPublicKey k, byte[] m) throws CryptoException
+	public byte[] decrypt(PublicKey k, byte[] m) throws CryptoException
 	{
-		java.security.Key o_k = k.getContents();
+		if (!(k instanceof RSAPublicKey))
+		{
+			throw new CryptoException("Expected a RSAPublicKey");
+		}
+		java.security.Key o_k = ((RSAPublicKey) k).getContents();
 		if (!(o_k instanceof java.security.PublicKey))
 		{
 			throw new CryptoException("Expected a public key");
 		}
-		return cipherDecrypt((java.security.PublicKey) k.getContents(), m);
+		return cipherDecrypt((java.security.PublicKey) o_k, m);
 	}
 	
 	@Override
-	public byte[] decrypt(RSAPrivateKey k, byte[] m) throws CryptoException
+	public byte[] decrypt(PrivateKey k, byte[] m) throws CryptoException
 	{
-		java.security.Key o_k = k.getContents();
+		if (!(k instanceof RSAPrivateKey))
+		{
+			throw new CryptoException("Expected a RSAPrivateKey");
+		}
+		java.security.Key o_k = ((RSAPrivateKey) k).getContents();
 		if (!(o_k instanceof java.security.PrivateKey))
 		{
 			throw new CryptoException("Expected a private key");
 		}
-		return cipherDecrypt((java.security.PrivateKey) k.getContents(), m);
+		return cipherDecrypt((java.security.PrivateKey) o_k, m);
 	}
 	/**
 	 * A public key for the RSA algorithm.
@@ -288,7 +304,7 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 	/**
 	 * A key pair consisting of an RSA public and private key.
 	 */
-	public static class RSAKeyPair implements KeyPair<RSAPublicKey,RSAPrivateKey>, Readable, Printable
+	public static class RSAKeyPair implements KeyPair, Readable, Printable
 	{
 		/**
 		 * The RSA public key of this key pair.
@@ -387,7 +403,7 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 	/**
 	 * A generator for RSA key pairs.
 	 */
-	public static class RSAKeyPairGenerator extends JavaKeyPairGenerator<RSAPublicKey,RSAPrivateKey>
+	public static class RSAKeyPairGenerator extends JavaKeyPairGenerator
 	{
 		/**
 		 * The size of the keys to generate.

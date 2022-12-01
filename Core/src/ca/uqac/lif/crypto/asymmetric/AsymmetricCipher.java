@@ -24,11 +24,9 @@ import ca.uqac.lif.crypto.CryptoException;
  * typically called the public key, and the other is called the private key.
  * @author Sylvain Hallé
  *
- * @param <PU> The type of the public key used by the algorithm
- * @param <PR> The type of the private key used by the algorithm
  * @param <M> The type of the message handled by the algorithm
  */
-public interface AsymmetricCipher<PU extends PublicKey,PR extends PrivateKey,M>
+public interface AsymmetricCipher<M>
 {
 	/**
 	 * Encrypts a message using a public key.
@@ -37,7 +35,7 @@ public interface AsymmetricCipher<PU extends PublicKey,PR extends PrivateKey,M>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the encryption could not proceed
 	 */
-	/*@ non_null @*/ public M encrypt(PU k, M m) throws CryptoException;
+	/*@ non_null @*/ public M encrypt(PublicKey k, M m) throws CryptoException;
 	
 	/**
 	 * Encrypts a message using a private key.
@@ -46,7 +44,7 @@ public interface AsymmetricCipher<PU extends PublicKey,PR extends PrivateKey,M>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the encryption could not proceed
 	 */
-	/*@ non_null @*/ public M encrypt(PR k, M m) throws CryptoException;
+	/*@ non_null @*/ public M encrypt(PrivateKey k, M m) throws CryptoException;
 	
 	/**
 	 * Decrypts a message using a public key.
@@ -55,7 +53,7 @@ public interface AsymmetricCipher<PU extends PublicKey,PR extends PrivateKey,M>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the decryption could not proceed
 	 */
-	public M decrypt(PU k, M m) throws CryptoException;
+	public M decrypt(PublicKey k, M m) throws CryptoException;
 	
 	/**
 	 * Decrypts a message using a private key.
@@ -64,5 +62,5 @@ public interface AsymmetricCipher<PU extends PublicKey,PR extends PrivateKey,M>
 	 * @return The encrypted message
 	 * @throws CryptoException Thrown if the decryption could not proceed
 	 */
-	public M decrypt(PR k, M m) throws CryptoException;
+	public M decrypt(PrivateKey k, M m) throws CryptoException;
 }

@@ -25,7 +25,7 @@ import ca.uqac.lif.crypto.CryptoException;
  * private key.
  * @author Sylvain Hallé
  */
-public interface KeyPair<PU extends PublicKey,PR extends PrivateKey>
+public interface KeyPair
 {
 	/**
 	 * Gets the private key contained in this key pair.
@@ -33,7 +33,7 @@ public interface KeyPair<PU extends PublicKey,PR extends PrivateKey>
 	 * in this pair
 	 * @throws CryptoException Thrown if the private key cannot be obtained
 	 */
-	/*@ null @*/ public PR getPrivateKey() throws CryptoException;
+	/*@ null @*/ public PrivateKey getPrivateKey() throws CryptoException;
 	
 	/**
 	 * Gets the public key contained in this key pair.
@@ -41,7 +41,7 @@ public interface KeyPair<PU extends PublicKey,PR extends PrivateKey>
 	 * in this pair
 	 * @throws CryptoException Thrown if the private key cannot be obtained
 	 */
-	/*@ null @*/ public PU getPublicKey() throws CryptoException;
+	/*@ null @*/ public PublicKey getPublicKey() throws CryptoException;
 	
 	/**
 	 * Gets a new key pair containing only the public key. In such a case the
@@ -49,5 +49,5 @@ public interface KeyPair<PU extends PublicKey,PR extends PrivateKey>
 	 * @return The new key pair
 	 * @throws CryptoException Thrown if the new key pair key cannot be created
 	 */
-	public KeyPair<PU,PR> getOnlyPublic() throws CryptoException;
+	public KeyPair getOnlyPublic() throws CryptoException;
 }

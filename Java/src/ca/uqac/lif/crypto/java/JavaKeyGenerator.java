@@ -21,7 +21,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import ca.uqac.lif.crypto.symmetric.KeyGenerator;
-import ca.uqac.lif.crypto.symmetric.SymmetricKey;
 
 /**
  * A key generator for symmetric encryption algorithms, leveraging Java's
@@ -29,7 +28,7 @@ import ca.uqac.lif.crypto.symmetric.SymmetricKey;
  * 
  * @author Sylvain Hallé
  */
-abstract class JavaKeyGenerator<K extends SymmetricKey> implements KeyGenerator<K>
+abstract class JavaKeyGenerator implements KeyGenerator
 {
 	/**
 	 * The underlying generator for keys.
