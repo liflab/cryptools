@@ -145,7 +145,16 @@ public class DummyAsymmetricCipher implements AsymmetricObjectCipher
 		}
 		
 		/**
-		 * Gets the name of the key's owneré
+		 * Empty constructor used only for deserialization.
+		 */
+		protected DummyPrivateKey()
+		{
+			super();
+			m_owner = "";
+		}
+		
+		/**
+		 * Gets the name of the key's owner
 		 * @return Tha name
 		 */
 		/*@ pure non_null @*/ String getOwner()
@@ -208,7 +217,16 @@ public class DummyAsymmetricCipher implements AsymmetricObjectCipher
 		}
 		
 		/**
-		 * Gets the name of the key's owneré
+		 * Empty constructor used only for deserialization.
+		 */
+		protected DummyPublicKey()
+		{
+			super();
+			m_owner = "";
+		}
+		
+		/**
+		 * Gets the name of the key's owner
 		 * @return Tha name
 		 */
 		/*@ pure non_null @*/ String getOwner()
@@ -288,6 +306,14 @@ public class DummyAsymmetricCipher implements AsymmetricObjectCipher
 			super();
 			m_publicKey = pu;
 			m_privateKey = pr;
+		}
+		
+		/**
+		 * Empty constructor used only for deserialization.
+		 */
+		protected DummyKeyPair()
+		{
+			this(null, null);
 		}
 		
 		@Override
