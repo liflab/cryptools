@@ -15,15 +15,36 @@
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package ca.uqac.lif.crypto.symmetric;
+package ca.uqac.lif.crypto.java;
+
+import ca.uqac.lif.crypto.CryptoException;
+import ca.uqac.lif.crypto.hash.ObjectHashFunction;
 
 /**
- * A symmetric cipher that encrypts objects into other objects.
+ * A hash function that takes as input an arbitrary object, and returns as its
+ * digest the return value of calling
+ * {@link HashCode#hashCode() hashCode()} on this object.
+ * 
  * @author Sylvain Hallé
- *
- * @param <K> The key type
  */
-public interface ObjectSymmetricCipher<K extends SymmetricKey> extends SymmetricCipher<K,Object>
+public class HashCode implements ObjectHashFunction
 {
-
+	/**
+	 * A reference to a single visible instance of the object hash function.
+	 */
+	/*@ non_null @*/ public static HashCode instance = new HashCode();
+	
+	/**
+	 * Creates a new object has function.
+	 */
+	protected HashCode()
+	{
+		super();
+	}
+	
+	@Override
+	/*@ non_null @*/ public Integer getDigest(/*@ non_null @*/ Object o) throws CryptoException
+	{
+		return o.hashCode();
+	}
 }

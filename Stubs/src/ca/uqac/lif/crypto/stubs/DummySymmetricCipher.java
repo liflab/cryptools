@@ -19,7 +19,7 @@ package ca.uqac.lif.crypto.stubs;
 
 import ca.uqac.lif.crypto.CryptoException;
 import ca.uqac.lif.crypto.symmetric.KeyGenerator;
-import ca.uqac.lif.crypto.symmetric.ObjectSymmetricCipher;
+import ca.uqac.lif.crypto.symmetric.SymmetricObjectCipher;
 import ca.uqac.lif.crypto.symmetric.SymmetricKey;
 
 /**
@@ -28,7 +28,7 @@ import ca.uqac.lif.crypto.symmetric.SymmetricKey;
  * 
  * @author Sylvain Hallé
  */
-public class DummySymmetricCipher implements ObjectSymmetricCipher<ca.uqac.lif.crypto.stubs.DummySymmetricCipher.DummySymmetricKey>
+public class DummySymmetricCipher implements SymmetricObjectCipher<ca.uqac.lif.crypto.stubs.DummySymmetricCipher.DummySymmetricKey>
 {
 	/**
 	 * A single publicly visible instance of the dummy symmetric cipher.

@@ -15,16 +15,15 @@
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package ca.uqac.lif.crypto.asymmetric;
+package ca.uqac.lif.crypto.symmetric;
 
 /**
- * An asymmetric cipher that turns Java objects into other objects.
+ * A symmetric cipher that encrypts objects into other objects.
  * @author Sylvain Hallé
  *
- * @param <PU> The type of the public key
- * @param <PR> The type of the private key
+ * @param <K> The key type
  */
-public interface ObjectAsymmetricCipher<PU extends PublicKey,PR extends PrivateKey> extends AsymmetricCipher<PU,PR,Object>
+public interface SymmetricObjectCipher<K extends SymmetricKey> extends SymmetricCipher<K,Object>
 {
 
 }

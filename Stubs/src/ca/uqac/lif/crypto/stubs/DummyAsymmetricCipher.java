@@ -21,11 +21,11 @@ import ca.uqac.lif.crypto.CryptoException;
 import ca.uqac.lif.crypto.Key;
 import ca.uqac.lif.crypto.asymmetric.KeyPair;
 import ca.uqac.lif.crypto.asymmetric.KeyPairGenerator;
-import ca.uqac.lif.crypto.asymmetric.ObjectAsymmetricCipher;
+import ca.uqac.lif.crypto.asymmetric.AsymmetricObjectCipher;
 import ca.uqac.lif.crypto.asymmetric.PrivateKey;
 import ca.uqac.lif.crypto.asymmetric.PublicKey;
 
-public class DummyAsymmetricCipher implements ObjectAsymmetricCipher<ca.uqac.lif.crypto.stubs.DummyAsymmetricCipher.DummyPublicKey,ca.uqac.lif.crypto.stubs.DummyAsymmetricCipher.DummyPrivateKey>
+public class DummyAsymmetricCipher implements AsymmetricObjectCipher<ca.uqac.lif.crypto.stubs.DummyAsymmetricCipher.DummyPublicKey,ca.uqac.lif.crypto.stubs.DummyAsymmetricCipher.DummyPrivateKey>
 {
 	/**
 	 * A single publicly visible instance of the dummy asymmetric cipher.
