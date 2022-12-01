@@ -33,4 +33,13 @@ public interface KeyPairGenerator<PU extends PublicKey,PR extends PrivateKey>
 	 * @throws CryptoException Thrown if the key could not be generated
 	 */
 	/*@ non_null @*/ public KeyPair<PU,PR> generateKeyPair() throws CryptoException;
+	
+	/**
+	 * Generates a new public-private key pair.
+	 * @param pu The name given to the public key
+	 * @param pr The name given to the private key
+	 * @return The generated key pair
+	 * @throws CryptoException Thrown if the key could not be generated
+	 */
+	/*@ non_null @*/ public KeyPair<PU,PR> generateKeyPair(/*@ non_null @*/ String pu, /*@ non_null @*/ String pr) throws CryptoException;
 }

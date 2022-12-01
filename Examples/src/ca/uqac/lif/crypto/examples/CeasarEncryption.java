@@ -97,5 +97,11 @@ public class CeasarEncryption
 		{
 			return m_offset;
 		}
+		
+		@Override
+		public String getName()
+		{
+			return ""; // Don't care
+		}
 	}
 }

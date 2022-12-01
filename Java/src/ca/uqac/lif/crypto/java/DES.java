@@ -88,14 +88,31 @@ public class DES extends JavaCipher implements SymmetricCipher<ca.uqac.lif.crypt
 	 */
 	public static class DESKey extends JavaSymmetricKey implements Readable, Printable
 	{
-		DESKey(SecretKey k)
+		/**
+		 * The key's optional name.
+		 */
+		protected final String m_name;
+		
+		DESKey(SecretKey k, String name)
 		{
 			super(k);
+			m_name = name;
 		}
 		
-		private DESKey()
+		DESKey(SecretKey k)
 		{
-			super(null);
+			this(k, "");
+		}
+		
+		protected DESKey()
+		{
+			this(null, "");
+		}
+		
+		@Override
+		public String getName()
+		{
+			return m_name;
 		}
 
 		@Override
@@ -133,13 +150,19 @@ public class DES extends JavaCipher implements SymmetricCipher<ca.uqac.lif.crypt
 		}
 		
 		@Override
-		public DESKey generateKey() throws CryptoException
+		public DESKey generateKey(String name) throws CryptoException
 		{
 			if (m_random != null)
 			{
 				m_generator.init(m_random);
 			}
-			return new DESKey(m_generator.generateKey());
+			return new DESKey(m_generator.generateKey(), name);
+		}
+		
+		@Override
+		public DESKey generateKey() throws CryptoException
+		{
+			return generateKey("");
 		}
 	}
 	

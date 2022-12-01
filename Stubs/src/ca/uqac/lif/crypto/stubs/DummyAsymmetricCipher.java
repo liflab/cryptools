@@ -15,21 +15,9 @@
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package ca.uqac.lif.crypto.symmetric;
+package ca.uqac.lif.crypto.stubs;
 
-/**
- * The encapsulation of an object of type <tt>T</tt> into an encrypted
- * object of type <tt>E</tt>  
- * @author sylvain
- * 
- * @param <T> The type of the object
- * @param <E> The type of the encrypted version of the object
- */
-public interface EncryptedObject
+public class DummyAsymmetricCipher
 {
-	/**
-	 * Gets the encrypted form of the object.
-	 * @return The encrypted form
-	 */
-	public Object getEncrypted();
+	
 }

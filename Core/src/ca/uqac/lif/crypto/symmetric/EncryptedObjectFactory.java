@@ -20,16 +20,13 @@ package ca.uqac.lif.crypto.symmetric;
 import ca.uqac.lif.crypto.CryptoException;
 
 /**
- * Generates encrypted objects from objects of type <tt>T</tt> and recovers
+ * Generates encrypted objects and recovers
  * objects from encrypted objects.
  * 
  * @author Sylvain Hallé
  *
- * @param <T> The type of the object
- * @param <K> The type of the key used to encrypt/decrypt objects
- * @param <E> The type of the encrypted version of the object
  */
-public interface EncryptedObjectFactory<T,K extends SymmetricKey,E,C extends SymmetricCipher<K,E>>
+public interface EncryptedObjectFactory
 {
 	/**
 	 * Produces an encrypted object.
@@ -38,7 +35,7 @@ public interface EncryptedObjectFactory<T,K extends SymmetricKey,E,C extends Sym
 	 * @return The encrypted object
 	 * @throws CryptoException Thrown if the object could not be encrypted
 	 */
-	/*@ non_null @*/ public EncryptedObject<T,E> encryptObject(K k, T t) throws CryptoException;
+	/*@ non_null @*/ public EncryptedObject encryptObject(SymmetricKey k, Object t) throws CryptoException;
 	
 	/**
 	 * Recovers an object from an encrypted object.
@@ -47,5 +44,5 @@ public interface EncryptedObjectFactory<T,K extends SymmetricKey,E,C extends Sym
 	 * @return The decrypted object
 	 * @throws CryptoException Thrown if the object could not be decrypted
 	 */
-	/*@ non_null @*/ public T decryptObject(K k, EncryptedObject<T,E> e) throws CryptoException;
+	/*@ non_null @*/ public Object decryptObject(SymmetricKey k, EncryptedObject e) throws CryptoException;
 }

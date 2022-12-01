@@ -126,14 +126,25 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 		/*@ non_null @*/ protected final java.security.PublicKey m_key;
 		
 		/**
+		 * The key's optional name.
+		 */
+		protected final String m_name;
+		
+		/**
 		 * Creates a new RSA public key.
 		 * @param k The underlying Java {@link PublicKey} object contained in this
 		 * key.
 		 */
-		public RSAPublicKey(/*@ non_null @*/ java.security.PublicKey k)
+		RSAPublicKey(/*@ non_null @*/ java.security.PublicKey k, String name)
 		{
 			super();
 			m_key = k;
+			m_name =name;
+		}
+		
+		RSAPublicKey(/*@ non_null @*/ java.security.PublicKey k)
+		{
+			this(k, "");
 		}
 		
 		/**
@@ -142,7 +153,7 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 		 */
 		protected RSAPublicKey()
 		{
-			this(null);
+			this(null, "");
 		}
 
 		/**
@@ -153,6 +164,12 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 		/*@ pure @*/ public java.security.PublicKey getContents()
 		{
 			return m_key;
+		}
+		
+		@Override
+		public String getName()
+		{
+			return m_name;
 		}
 
 		@Override
@@ -194,14 +211,26 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 		/*@ non_null @*/ protected final java.security.PrivateKey m_key;
 		
 		/**
+		 * The key's optional name.
+		 */
+		protected final String m_name;
+		
+		/**
 		 * Creates a new RSA private key.
 		 * @param k The underlying Java {@link PrivateKey} object contained in this
 		 * key.
+		 * @param name The key's optional name
 		 */
-		public RSAPrivateKey(/*@ non_null @*/ java.security.PrivateKey k)
+		RSAPrivateKey(/*@ non_null @*/ java.security.PrivateKey k, String name)
 		{
 			super();
 			m_key = k;
+			m_name = name;
+		}
+		
+		RSAPrivateKey(/*@ non_null @*/ java.security.PrivateKey k)
+		{
+			this(k, "");
 		}
 		
 		/**
@@ -221,6 +250,12 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 		/*@ pure @*/ public java.security.PrivateKey getContents()
 		{
 			return m_key;
+		}
+		
+		@Override
+		public String getName()
+		{
+			return m_name;
 		}
 		
 		@Override
@@ -371,14 +406,20 @@ public class RSA extends JavaCipher implements AsymmetricCipher<ca.uqac.lif.cryp
 		}
 		
 		@Override
-		public RSAKeyPair generateKeyPair() throws CryptoException
+		public RSAKeyPair generateKeyPair(String pu, String pr) throws CryptoException
 		{
 			if (m_random != null)
 			{
 				m_generator.initialize(m_keySize, m_random);
 			}
 			java.security.KeyPair j_pair = m_generator.generateKeyPair();
-			return new RSAKeyPair(new RSAPublicKey(j_pair.getPublic()), new RSAPrivateKey(j_pair.getPrivate()));
+			return new RSAKeyPair(new RSAPublicKey(j_pair.getPublic(), pu), new RSAPrivateKey(j_pair.getPrivate(), pr));
+		}
+		
+		@Override
+		public RSAKeyPair generateKeyPair() throws CryptoException
+		{
+			return generateKeyPair("", "");
 		}
 	}
 	

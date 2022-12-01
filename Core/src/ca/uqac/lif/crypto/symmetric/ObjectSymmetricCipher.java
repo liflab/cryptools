@@ -17,28 +17,13 @@
  */
 package ca.uqac.lif.crypto.symmetric;
 
-import ca.uqac.lif.crypto.CryptoException;
-
 /**
- * Generates keys for a for a symmetric encryption algorithm.
+ * A symmetric cipher that encrypts objects into other objects.
  * @author Sylvain Hallé
  *
- * @param <K> The type of the key contents
+ * @param <K> The key type
  */
-public interface KeyGenerator<K extends SymmetricKey>
+public interface ObjectSymmetricCipher<K extends SymmetricKey> extends SymmetricCipher<K,Object>
 {
-	/**
-	 * Generates a new key.
-	 * @return The generated key
-	 * @throws CryptoException Thrown if the key could not be generated
-	 */
-	/*@ non_null @*/ public K generateKey() throws CryptoException;
-	
-	/**
-	 * Generates a new key and assigns it a name.
-	 * @param name The name given to this key
-	 * @return The generated key
-	 * @throws CryptoException Thrown if the key could not be generated
-	 */
-	/*@ non_null @*/ public K generateKey(/*@ non_null @*/ String name) throws CryptoException;
+
 }
