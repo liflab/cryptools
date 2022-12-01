@@ -27,7 +27,6 @@ import ca.uqac.lif.azrael.PrintException;
 import ca.uqac.lif.azrael.Printable;
 import ca.uqac.lif.azrael.ReadException;
 import ca.uqac.lif.azrael.Readable;
-import ca.uqac.lif.crypto.Key;
 import ca.uqac.lif.crypto.KeyChain;
 
 /**
@@ -134,10 +133,6 @@ public class JavaKeyChain<E,K> implements KeyChain<E,K>, Readable, Printable
 		{
 			Object k = e.getKey();
 			Object v = e.getValue();
-			if (!(v instanceof Key))
-			{
-				throw new ReadException("Expected a key");
-			}
 			chain.put((E) k, (K) v);
 		}
 		return new JavaKeyChain<E,K>(chain);
