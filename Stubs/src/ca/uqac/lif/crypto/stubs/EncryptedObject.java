@@ -30,7 +30,7 @@ import ca.uqac.lif.crypto.Key;
  * equal if and only if they contain the same internal object encrypted with
  * the same key.
  */
-class EncryptedObject
+public class EncryptedObject
 {
 	/**
 	 * The name of the key used to "encrypt" the object.

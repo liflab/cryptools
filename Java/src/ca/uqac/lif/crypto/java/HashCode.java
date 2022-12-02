@@ -18,7 +18,7 @@
 package ca.uqac.lif.crypto.java;
 
 import ca.uqac.lif.crypto.CryptoException;
-import ca.uqac.lif.crypto.hash.ObjectHashFunction;
+import ca.uqac.lif.crypto.hash.HashFunction;
 
 /**
  * A hash function that takes as input an arbitrary object, and returns as its
@@ -27,7 +27,7 @@ import ca.uqac.lif.crypto.hash.ObjectHashFunction;
  * 
  * @author Sylvain Hallé
  */
-public class HashCode implements ObjectHashFunction
+public class HashCode implements HashFunction<Object,Integer>
 {
 	/**
 	 * A reference to a single visible instance of the object hash function.
