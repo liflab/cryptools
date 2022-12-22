@@ -146,7 +146,7 @@ public class DummySymmetricCipher implements SymmetricObjectCipher
 	/**
 	 * A generator for dummy symmetric encryption keys.
 	 */
-	protected static class DummyKeyGenerator implements KeyGenerator
+	public static class DummyKeyGenerator implements KeyGenerator
 	{
 		@Override
 		public DummySymmetricKey generateKey() throws CryptoException

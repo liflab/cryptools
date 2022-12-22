@@ -60,6 +60,15 @@ public class DummyHashFunction implements HashFunction<Object,ca.uqac.lif.crypto
 			super();
 			m_value = value;
 		}
+		
+		/**
+		 * Gets the hash value.
+		 * @return The value
+		 */
+		public Object getObject()
+		{
+			return m_value;
+		}
 
 		@Override
 		public String toString()
