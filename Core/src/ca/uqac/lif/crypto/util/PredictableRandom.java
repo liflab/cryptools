@@ -75,45 +75,15 @@ public class PredictableRandom extends SecureRandom
 	}
 
 	@Override
-	public int nextInt(int origin, int bound)
-	{
-		return m_random.nextInt(origin, bound);
-	}
-
-	@Override
 	public long nextLong()
 	{
 		return m_random.nextLong();
 	}
 
 	@Override
-	public long nextLong(long bound)
-	{
-		return m_random.nextLong(bound);
-	}
-
-	@Override
-	public long nextLong(long origin, long bound)
-	{
-		return m_random.nextLong(origin, bound);
-	}
-
-	@Override
 	public float nextFloat()
 	{
 		return m_random.nextFloat();
-	}
-
-	@Override
-	public float nextFloat(float bound)
-	{
-		return m_random.nextFloat(bound);
-	}
-
-	@Override
-	public float nextFloat(float origin, float bound)
-	{
-		return m_random.nextFloat(origin, bound);
 	}
 	
 	@Override

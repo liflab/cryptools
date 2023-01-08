@@ -1,17 +1,17 @@
 /*
   Simple tools for cryptographic operations
-  Copyright (C) 2022 Sylvain Hallé
-  
+  Copyright (C) 2022-2023 Sylvain Hallé
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
-  
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
   GNU General Public License for more details.
-  
+
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -55,7 +55,7 @@ public abstract class ByteArray
 			ps.print(String.format("%02X", b));
 		}
 	}
-	
+
 	/**
 	 * Prints the content of a byte array as a hexadecimal string into an
 	 * output stream.
@@ -78,7 +78,7 @@ public abstract class ByteArray
 		printHexString(baos, array);
 		return baos.toString();
 	}
-	
+
 	/**
 	 * Returns the first eight bytes of a byte array as a hexadecimal string.
 	 * @param array The byte array to convert
@@ -96,7 +96,7 @@ public abstract class ByteArray
 		byte[] s_bytes;
 		try
 		{
-			s_bytes = is.readAllBytes();
+			s_bytes = readAllBytes(is);
 		}
 		catch (IOException e) 
 		{
@@ -112,11 +112,23 @@ public abstract class ByteArray
 		}
 		return ans;
 	}
-	
+
 	public static byte[] fromHexString(String s)
 	{
 		return readHexString(new ByteArrayInputStream(s.getBytes()));
 	}
-	
-	
+
+	protected static byte[] readAllBytes(InputStream is) throws IOException
+	{
+		final int bufLen = 1024;
+		byte[] buf = new byte[bufLen];
+		int readLen;
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		while ((readLen = is.read(buf, 0, bufLen)) != -1)
+		{
+			outputStream.write(buf, 0, readLen);
+		}
+
+		return outputStream.toByteArray();
+	}
 }

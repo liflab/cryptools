@@ -137,7 +137,7 @@ public class DummyAsymmetricCipher implements AsymmetricObjectCipher
 		DummyPrivateKey(/*@ non_null @*/ String owner) throws CryptoException
 		{
 			super();
-			if (owner == null || owner.isBlank())
+			if (owner == null || owner.isEmpty())
 			{
 				throw new CryptoException("Owner cannot be empty");
 			}
@@ -209,7 +209,7 @@ public class DummyAsymmetricCipher implements AsymmetricObjectCipher
 		DummyPublicKey(/*@ non_null @*/ String owner) throws CryptoException
 		{
 			super();
-			if (owner == null || owner.isBlank())
+			if (owner == null || owner.isEmpty())
 			{
 				throw new CryptoException("Owner cannot be empty");
 			}

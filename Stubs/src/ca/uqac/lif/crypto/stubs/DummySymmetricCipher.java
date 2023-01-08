@@ -102,7 +102,7 @@ public class DummySymmetricCipher implements SymmetricObjectCipher
 		protected DummySymmetricKey(String name) throws CryptoException
 		{
 			super();
-			if (name == null || name.isBlank())
+			if (name == null || name.isEmpty())
 			{
 				throw new CryptoException("This key must be given a name");
 			}
