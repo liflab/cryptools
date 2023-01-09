@@ -6,7 +6,9 @@ This Java library offers a small set of classes to perform basic cryptographic o
 The core package, called `ca.uqac.lif.crypto`, merely provides *interfaces* for these concepts (`Key`, `SymmetricCipher`, `HashFunction`, etc.), without being tied to any specific implementation (not even Java's own cryptographic classes). This core package can then be combined with any extension implementing these interfaces using an arbitrary encryption library. For example:
 
 - The `Java` extension provides a package implementing ciphers using Java's internal cryptographic functionalities.
+- The `Apache` extension implements alternate version of ciphers that rely on the [Apache Commons Crypto](https://commons.apache.org/proper/commons-crypto/) and [Codec](https://commons.apache.org/proper/commons-codec/) libraries instead.
 - The `Stubs` extension contains ciphers that *simulate* encryption without actually performing it (more on that later). It can prove useful for development, testing and demonstration purposes.
+- The `Azrael` extension
 
 Basic Examples
 --------------
@@ -44,6 +46,13 @@ Calculate the SHA-2 hash of a string:
 
 ```java
 byte[] h = SHA2.instance.getDigest("Hello world".getBytes());
+```
+
+Hash the password for a shadow file, similar to [`mkpasswd`](https://linux.die.net/man/1/mkpasswd) command (requires the *Apache* extension):
+
+```java
+String h = GnuCrypt.instance.getDigest("thepassword", "$1$aFGiJR0E");
+System.out.println(h); // $1$Z58Nnbh2$d.ScTU1V0DUw67QrwhqYL1
 ```
 
 Advanced Features
