@@ -64,29 +64,38 @@
   </target>
 
   <!-- Calls the "jar" task in each subfolder -->  
-  <target name="jar" depends="init,prepare">
-    <for param="subdir">
-      <dirset dir=".">
-        <include name="*"/>
-      </dirset>
-      <sequential>
-          <if>
-            <available file="@{subdir}/build.xml"/>
-            <then>
-              <trycatch>
-                <try>
-                  <ant dir="@{subdir}" target="jar" />
-                </try>
-                <catch>
-                  <echo message="Build failed for folder @{subdir}"/>
-                  <property name="build.onefailed" value="true"/>
-                </catch>
-              </trycatch>
-            </then>
-          </if>
-      </sequential>
-    </for>
-    <fail message="Build failed for one of the palettes" if="build.onefailed"/>
+  <target name="jar" depends="init">
+    <!-- Delete any cryptools jars in lib dir -->
+    <delete>
+      <fileset dir="lib">
+        <include name="cryptools-*.jar"/>
+      </fileset>
+    </delete>
+    <!-- Compile Core -->
+    <ant dir="Core" target="jar" />
+    <!-- Copy Core to lib dir -->
+    <copy todir="lib">
+      <fileset dir=".">
+        <include name="cryptools-core*.jar"/>
+        <exclude name="*javadoc.jar"/>
+        <exclude name="*sources.jar"/>
+      </fileset>
+    </copy>
+    <!-- Compile others except Examples -->
+    <ant dir="Apache" target="jar" />
+    <ant dir="Azrael" target="jar" />
+    <ant dir="Java" target="jar" />
+    <ant dir="Stubs" target="jar" />
+    <!-- Copy these JARs to libdir -->
+    <copy todir="lib">
+      <fileset dir=".">
+        <include name="cryptools-*.jar"/>
+        <exclude name="*javadoc.jar"/>
+        <exclude name="*sources.jar"/>
+      </fileset>
+    </copy>
+    <!-- Compile Examples -->
+    <ant dir="Examples" target="jar" />
   </target>
   
   <!-- Calls the "show-properties" task in each subfolder -->
@@ -253,6 +262,12 @@
        depend on Core, can compile. -->
   <target name="prepare" depends="init">
     <ant dir="Core" target="jar" />
-    <copy file="cryptools-core.jar" tofile="${build.rootlibdir}/cryptools-core.jar" failonerror="true"/>
+    <copy todir="${build.rootlibdir}">
+      <fileset dir=".">
+        <include name="cryptools-core*.jar"/>
+        <exclude name="*javadoc.jar"/>
+        <exclude name="*sources.jar"/>
+      </fileset>
+    </copy>
   </target>
 </project>

@@ -25,20 +25,26 @@
   <!-- The project's name -->
   <name>Cryptools Azrael</name>
   
+  <!-- The project's version number -->
+  <version>1.2</version>
+
+  <!-- The project's package (with a trailing slash) -->
+  <package>ca/uqac/lif/crypto/azrael/</package>
+  
   <!-- The project's author. Currently this only
   shows up in the footer of the Javadoc documentation. -->
   <author>Sylvain Hallé</author>
 
   <jar>
-    <filename>../cryptools-azrael.jar</filename>
+    <filename>../cryptools-azrael</filename>
     <basename>Cryptools Azrael</basename>
   </jar>
   
   <!-- The project's main class -->
   <!-- <mainclass>my.package.MainClass</mainclass> -->
   
-  <!-- The location of rt.jar -->
-  <rtlocation>../rt.jar</rtlocation>
+  <!-- The target version of the JDK we compile for -->
+  <targetjdk>8</targetjdk>
 
   <srcdir>src</srcdir>
   <docdir>doc</docdir>
@@ -60,7 +66,7 @@
     Write JAR dependencies here.
   -->
   <dependencies>
-<dependency>
+    <dependency>
       <!--
       Azrael. Used for serialization
       -->
@@ -68,7 +74,7 @@
       <classname>ca.uqac.lif.azrael.ObjectPrinter</classname>
       <bundle>false</bundle>
       <files>
-        <jar>https://github.com/sylvainhalle/Azrael/releases/download/v2.1.1/azrael-core.jar</jar>
+        <jar>https://github.com/sylvainhalle/Azrael/releases/download/v2.1.2/azrael-core-2.1.2.jar</jar>
       </files>
     </dependency>
   </dependencies>

@@ -25,20 +25,26 @@
   <!-- The project's name -->
   <name>Cryptools Azrael</name>
   
+  <!-- The project's version number -->
+  <version>1.2</version>
+
+  <!-- The project's package (with a trailing slash) -->
+  <package>ca/uqac/lif/crypto/java/</package>
+  
   <!-- The project's author. Currently this only
   shows up in the footer of the Javadoc documentation. -->
   <author>Sylvain Hallé</author>
 
   <jar>
-    <filename>../cryptools-java.jar</filename>
+    <filename>../cryptools-java</filename>
     <basename>Cryptools Java</basename>
   </jar>
   
   <!-- The project's main class -->
   <!-- <mainclass>my.package.MainClass</mainclass> -->
   
-  <!-- The location of rt.jar -->
-  <rtlocation>../rt.jar</rtlocation>
+  <!-- The target version of the JDK we compile for -->
+  <targetjdk>8</targetjdk>
 
   <srcdir>src</srcdir>
   <docdir>doc</docdir>

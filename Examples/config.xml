@@ -25,20 +25,26 @@
   <!-- The project's name -->
   <name>Cryptools Examples</name>
   
+  <!-- The project's version number -->
+  <version>1.2</version>
+
+  <!-- The project's package (with a trailing slash) -->
+  <package>ca/uqac/lif/crypto/examples/</package>
+  
   <!-- The project's author. Currently this only
   shows up in the footer of the Javadoc documentation. -->
   <author>Sylvain Hallé</author>
 
   <jar>
-    <filename>../cryptools-examples.jar</filename>
+    <filename>../cryptools-examples</filename>
     <basename>Cryptools Examples</basename>
   </jar>
   
   <!-- The project's main class -->
   <!-- <mainclass>my.package.MainClass</mainclass> -->
   
-  <!-- The location of rt.jar -->
-  <rtlocation>../rt.jar</rtlocation>
+  <!-- The target version of the JDK we compile for -->
+  <targetjdk>8</targetjdk>
 
   <srcdir>src</srcdir>
   <docdir>doc</docdir>
@@ -60,6 +66,38 @@
     Write JAR dependencies here.
   -->
   <dependencies>
-    <!-- None -->
+    <dependency>
+      <!--
+      Azrael. Used for serialization
+      -->
+      <name>Azrael Core</name>
+      <classname>ca.uqac.lif.azrael.ObjectPrinter</classname>
+      <bundle>false</bundle>
+      <files>
+        <jar>https://github.com/sylvainhalle/Azrael/releases/download/v2.1.2/azrael-core-2.1.2.jar</jar>
+      </files>
+    </dependency>
+    <dependency>
+      <!--
+      Azrael JSON. Used for serialization
+      -->
+      <name>Azrael JSON</name>
+      <classname>ca.uqac.lif.azrael.json.JsonReader</classname>
+      <bundle>false</bundle>
+      <files>
+        <jar>https://github.com/sylvainhalle/Azrael/releases/download/v2.1.2/azrael-json-2.1.2.jar</jar>
+      </files>
+    </dependency>
+    <dependency>
+      <!--
+      lif-fs. Used for file manipulation.
+      -->
+      <name>lif-fs</name>
+      <classname>ca.uqac.lif.fs.FileSystem</classname>
+      <bundle>false</bundle>
+      <files>
+        <jar>https://github.com/liflab/lif-fs/releases/download/v0.2.1/lif-fs-core-0.2.1.jar</jar>
+      </files>
+    </dependency>
   </dependencies>
 </build>
