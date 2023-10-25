@@ -65,10 +65,10 @@
       Apache Commons Codec. For crypt(3)
       -->
       <name>Apache Commons Codec</name>
-      <classname>ca.uqac.lif.azrael.ObjectPrinter</classname>
+      <classname>org.apache.commons.codec.digest.Crypt</classname>
       <bundle>false</bundle>
       <files>
-        <zip>https://dlcdn.apache.org//commons/codec/binaries/commons-codec-1.15-bin.zip</zip>
+        <zip>https://archive.apache.org/dist/commons/codec/binaries/commons-codec-1.15-bin.zip</zip>
       </files>
     </dependency>
   </dependencies>
